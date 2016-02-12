@@ -1,9 +1,7 @@
+load(['lodash.js']);
+
 var m = (function() {
 
-    function perf_median(sequence) {
-        sequence.sort();  // note that direction doesn't matter
-        return sequence[Math.ceil(sequence.length / 2)];
-    }
 
     var INT_TO_SYM = {
         1: '2C',
@@ -72,7 +70,7 @@ var m = (function() {
         /* cards: array of integers
          returns: array of symbols
          */
-        r = [];
+        var r = [];
         for (var i = 0; i < cards.length; i++) {
             r.push(INT_TO_SYM[cards[i]]);
         }
@@ -232,6 +230,67 @@ var m = (function() {
         return false
     };
 
+    var test_combo = function (hand1, hand2, combo_sel) {
+        combo = new Combine(hand1, hand2);
+        if (combo_sel.points.include && combo_sel.distr.include) {
+            if (combo.hasPoints(combo_sel.points.type, combo_sel.points.count) &&
+                combo.hasDistr(combo_sel.distr.spades, combo_sel.distr.hearts, combo_sel.distr.diamonds, combo_sel.distr.clubs)) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else if (combo_sel.points.include) {
+            if (combo.hasPoints(combo_sel.points.type, combo_sel.points.count)) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else if (combo_sel.distr.include)
+        {
+            if (combo.hasDistr(combo_sel.distr.spades, combo_sel.distr.hearts, combo_sel.distr.diamonds, combo_sel.distr.clubs)) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            return true;
+        }
+    };
+
+    var displayCombineObj = function() {
+        console.log('displayObj');
+        return 'Combine' + '\n'
+            + 'distr: ' + [this.count.spades, this.count.hearts, this.count.diamonds, this.count.clubs] + '\n'
+            + 'hcp: ' + this.hcp.total + '\n'
+            + 'lp: ' + this.lp.total + '\n'
+            + 'sp: ' + this.sp.total + '\n'
+    };
+
+
+    var displayHandObj = function() {
+        return 'hand : ' + get_card_symbols(sort_cards(this.cards)) + '\n'
+            + 'distr: ' + this.distr + '\n'
+            + 'hcp  : ' + this.hcp.total + '\n'
+            + 'lp   : ' + this.lp.total + '\n'
+            + 'sp   : ' + this.sp.total + '\n'
+            + 'ltc  : ' + this.ltc.total + '\n';
+    };
+
+    var displayDealObj = function () {
+        return 'hand1: ' + get_card_symbols(sort_cards(this.a))
+            + '\nhand2: ' + get_card_symbols(sort_cards(this.b))
+            + '\nhand3: ' + get_card_symbols(sort_cards(this.c))
+            + '\nhand4: ' + get_card_symbols(sort_cards(this.d));
+    };
+
+
+
     var Deal = function () {
         /* deal random cards
          returns object o
@@ -241,42 +300,24 @@ var m = (function() {
          o.d		hand4
          */
 
-        var displayObj = function () {
-            return 'hand1: ' + get_card_symbols(sort_cards(this.a))
-                + '\nhand2: ' + get_card_symbols(sort_cards(this.b))
-                + '\nhand3: ' + get_card_symbols(sort_cards(this.c))
-                + '\nhand4: ' + get_card_symbols(sort_cards(this.d));
-        };
+        var deck = _.shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
+                              14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
+                              27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
+                              40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52])
 
-        var result = [];
-        var deck = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
-            14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
-            27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
-            40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52];
-        var i = 1;
-        while (i <= 52) {
-            result.push(deck.splice(Math.round(Math.random() * (deck.length - 1)), 1).pop());
-            i++;
-        }
-        this.a = result.slice(0, 13);
-        this.b = result.slice(13, 26);
-        this.c = result.slice(26, 39);
-        this.d = result.slice(39, 52);
+        this.a = deck.slice(0, 13);
+        this.b = deck.slice(13, 26);
+        this.c = deck.slice(26, 39);
+        this.d = deck.slice(39, 52);
 
-        this.toString = displayObj;
     }
+    Deal.prototype = {
+        constructor: Deal,
+        toString: displayDealObj
+    };
 
 
     var Hand = function(cards) {
-
-        var displayObj = function() {
-                            return 'hand : ' + this.display_cards(sort_cards(this.cards)) + '\n'
-                                + 'distr: ' + this.distr + '\n'
-                                + 'hcp  : ' + this.hcp.total + '\n'
-                                + 'lp   : ' + this.lp.total + '\n'
-                                + 'sp   : ' + this.sp.total + '\n'
-                                + 'ltc  : ' + this.ltc.total + '\n';
-                        }
 
 
         this.cards = cards;
@@ -323,25 +364,20 @@ var m = (function() {
                     spades: get_ltc(this.count.spades, this.honours.spades)};
         this.ltc.total = this.ltc.clubs + this.ltc.diamonds + this.ltc.hearts +this.ltc.spades;
 
-        this.display_cards = function(cards) {return get_card_symbols(cards);};
+        if (typeof this.hasPoints !== 'function') {
+            Hand.prototype.hasPoints = hasPoints;
+        }
 
-        this.hasPoints = hasPoints;
-        this.hasDistr = hasDistr;
-
-        this.toString = displayObj;
+        if (typeof this.hasDistr !== 'function') {
+            Hand.prototype.hasDistr = hasDistr;
+        }
     };
-
+    Hand.prototype = {constructor: Hand,
+                      toString:displayHandObj};
 
     var Combine = function (hand1, hand2) {
         // combine two Hand objects
 
-        var displayObj = function() {
-            return 'Combine' + '\n'
-                   + 'distr: ' + [this.count.spades, this.count.hearts, this.count.diamonds, this.count.clubs] + '\n'
-                   + 'hcp: ' + this.hcp.total + '\n'
-                   + 'lp: ' + this.lp.total + '\n'
-                   + 'sp: ' + this.sp.total + '\n'
-        }
 
         this.count = {spades: hand1.count.spades + hand2.count.spades,
                       hearts: hand1.count.hearts + hand2.count.hearts,
@@ -351,36 +387,29 @@ var m = (function() {
         this.lp = {total: hand1.lp.total + hand2.lp.total};
         this.sp = {total: hand1.sp.total + hand2.sp.total};
 
-        this.hasPoints = hasPoints;
-        this.hasDistr = hasDistr;
 
-        this.toString = displayObj;
+        if (_.isFunction(hasPoints)) {
+            Combine.prototype.hasPoints = hasPoints;
+        }
+
+        if (_.isFunction(hasDistr)) {
+            Combine.prototype.hasDistr = hasDistr;
+        }
+    };
+    Combine.prototype = {
+        constructor: Combine,
+        toString: displayCombineObj
     };
 
-    var make_hand = function(hand_sel, combo_sel) {
 
-        var perf_getStamp = dateNow;
-
-        var perf_t0, perf_t1;
-        var perf_deal = [];
-        var perf_hands = []
-
+    var find_hand = function(hand_sel, combo_sel) {
+        // find hand that meets hand_sel criteria
         var max_iterations = 1000;
         var k = 0;
         while (k < max_iterations) {
             var hand_found = false;
-
-            perf_t0 = perf_getStamp();
-            deal = new Deal();
-            perf_t1 = perf_getStamp();
-            perf_deal.push(perf_t1 - perf_t0);
-
-            perf_t0 = perf_getStamp();
-            hands = [new Hand(deal.a), new Hand(deal.b), new Hand(deal.b), new Hand(deal.d)];
-            perf_t1 = perf_getStamp();
-            perf_hands.push(perf_t1 - perf_t0);
-
-
+            var deal = new Deal();
+            var hands = [new Hand(deal.a), new Hand(deal.b), new Hand(deal.b), new Hand(deal.d)];
             for (var i = 0; i < 4; i++) {
                 // test each hand
                 if (hand_sel.points.include && hand_sel.distr.include) {
@@ -401,8 +430,7 @@ var m = (function() {
                 }
                 else if (hand_sel.distr.include) {
                     // distr only criteria
-                    if (hands[i].hasPoints(hand_sel.points.type, hand_sel.points.count) &&
-                        hands[i].hasDistr(hand_sel.distr.spades, hand_sel.distr.hearts, hand_sel.distr.diamonds, hand_sel.distr.clubs)) {
+                    if (hands[i].hasDistr(hand_sel.distr.spades, hand_sel.distr.hearts, hand_sel.distr.diamonds, hand_sel.distr.clubs)) {
                         var hand_found = true;
                         break;
                     }
@@ -418,8 +446,7 @@ var m = (function() {
             }
             k++;
         }
-        console.log('iterations: ' + k);
-        var result = {hand_found: hand_found};
+        var result = {hand_found: hand_found, iterations:k};
         if (hand_found) {
             result.index = i;
             result.hands = hands;
@@ -427,32 +454,87 @@ var m = (function() {
         return result;
     };
 
+    var find_combo_hand_selected = function(find_hand_result, combo_sel) {
+        // find combination with hand already selected
+        var other_indexes = _.xor([find_hand_result.index], [0,1,2,3]);
+        var combinations = [[find_hand_result.index, other_indexes[0]],
+                            [find_hand_result.index, other_indexes[1]],
+                            [find_hand_result.index, other_indexes[2]]];
+        for (j = 0; j < combinations.length; j++) {
+            if (test_combo(hands[combinations[j][0]], hands[combinations[j][0]], combo_sel)) {
+                combo_found = true;
+                var team2_indexes = _.xor([0,1,2,3], [combinations[j][0], combinations[j][1]]);
+                result = {
+                    combo_found: combo_found,
+                    team1: {A: hands[combinations[j][0]], B: hands[combinations[j][1]]},
+                    team2: {A: hands[team2_indexes[0]], B: hands[team2_indexes[1]]}
+                };
+                break;
+            }
+        }
+        if (combo_found) {
+            return result;
+        }
+        else {
+            return {combo_found: false};
+        }
+    };
 
-/*
-                perf_deal: perf_deal,
-                perf_deal_median: perf_median(perf_deal),
-                perf_hands: perf_hands,
-                perf_hands_median: perf_median(perf_hands)};
-*/
 
+    var find_combo_no_hand_selected = function(combo_sel) {
+        // find combination
 
-/*
-    teams = {1: {A:hand1, B:hand2},
-             2: {A:hand3, B:hand4}};
-    return teams
-*/
+        var combo_found, deal, hands, j, result;
+        var combinations = [[0,1],[0,2],[0,3],[1,2],[1,3],[2,3]];
+        combo_found = false;
+        var max_iterations = 1000;
+        var k = 0;
+
+        while (k < max_iterations) {
+            deal = new Deal();
+            hands = [new Hand(deal.a), new Hand(deal.b), new Hand(deal.b), new Hand(deal.d)];
+            // test all combinations
+            for (j = 0; j < combinations.length; j++) {
+                if (test_combo(hands[combinations[j][0]], hands[combinations[j][1]], combo_sel)) {
+                    combo_found = true;
+                    var team2_indexes = _.xor([0,1,2,3], [combinations[j][0], combinations[j][1]]);
+                    console.log(combinations[j][0], combinations[j][1], team2_indexes[0], team2_indexes[1] )
+
+                    result = {combo_found: combo_found,
+                              iterations: k,
+                              team1: { A: hands[ combinations[j][0] ], B: hands[ combinations[j][1] ] },
+                              team2: { A: hands[ team2_indexes[0] ], B: hands[ team2_indexes[1] ] } };
+                    break;
+                }
+            }
+            if (combo_found) {
+                break;
+            }
+            k++;
+        }
+        if (combo_found) {
+            return result;
+        }
+        else {
+            return {combo_found: false};
+        }
+    }
+
 
 //  make public
     return {
-        Deal       : Deal,          // Deal constructor, deal = new moduleName.Deal()
-        Hand       : Hand,          // Hand constructor, hand - new moduleName.Hand(deal.a)
-        Combine    : Combine,        // Combine constructor, combo = new moduleName.Combine(hand1, hand2)
-        make_hand  : make_hand
-    }
+        Deal            : Deal,          // Deal constructor, deal = new moduleName.Deal()
+        Hand            : Hand,          // Hand constructor, hand - new moduleName.Hand(deal.a)
+        Combine         : Combine,        // Combine constructor, combo = new moduleName.Combine(hand1, hand2)
+        find_hand       : find_hand,
+        find_combo_nh   : find_combo_no_hand_selected,
+        get_card_symbols: get_card_symbols
+    };
 
 })();
 
 
+/*
 deal = new m.Deal();
 hand1 = new m.Hand(deal.a);
 console.log(hand1);
@@ -460,14 +542,36 @@ hand2 = new m.Hand(deal.b);
 console.log(hand2);
 combo = new m.Combine(hand1, hand2);
 console.log(combo);
+*/
 
 hand_sel = {points: {include: false, type: 'hcp', count: 10 },
             distr:  {include: false, spades: 5, hearts:3, diamonds:3, clubs:2}};
-combo_sel = {points: {include: false, type: 'hcp', count: 13},
-            distr:  {include: false, spades: 4, hearts:3, diamonds:3, clubs:3}};
-var p = m.make_hand(hand_sel, combo_sel);
 
+
+
+combo_sel = {points: {include: true, type: 'lp', count: 20},
+            distr:  {include: true, spades: 8, hearts:6, diamonds:6, clubs:6}};
+
+var r = m.find_combo_nh(combo_sel);
+console.log(r.team1.A);
+console.log(r.team1.B);
+
+//if (r.combo_found) {
+//    console.log('r.combo_found: ' + r.combo_found )
+//    console.log('team1.A');
+//    console.log(r.team1.A);
+//    console.log('team1.B');
+    //console.log(r.team1.A);
+    //combo = new m.Combine(r.team1.A, r.team1.B);
+    //console.log(combo);
+//}
+
+
+
+/*
+var p = m.make_hand(hand_sel, combo_sel);
 if (p.hand_found) {
     console.log(p.hands[p.index]);
 }
 else {console.log('No hand found');}
+*/
