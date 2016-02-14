@@ -58,7 +58,7 @@ var m = (function() {
         52: 'AS'
     };
 
-    var MAX_ITERATIONS = 1000;
+    var MAX_ITERATIONS = 1000000;
 
     var sort_cards = function (cards) {
         // sort array of cards in descending order
@@ -435,7 +435,7 @@ var m = (function() {
         while (k < MAX_ITERATIONS) {
             var hand_found = false;
             var deal = new Deal();
-            var hands = [new Hand(deal.a), new Hand(deal.b), new Hand(deal.b), new Hand(deal.d)];
+            var hands = [new Hand(deal.a), new Hand(deal.b), new Hand(deal.c), new Hand(deal.d)];
             for (var i = 0; i < 4; i++) {
                 // test each hand
                 if (hand_sel.points.include && hand_sel.distr.include) {
@@ -482,14 +482,13 @@ var m = (function() {
 
     var find_combo_hand_selected = function(find_hand_result, combo_sel) {
         // find combination with hand already selected
+        var combo_found = false;
         var other_indexes = _.xor([find_hand_result.index], [0,1,2,3]);
         var combinations = [[find_hand_result.index, other_indexes[0]],
                             [find_hand_result.index, other_indexes[1]],
                             [find_hand_result.index, other_indexes[2]]];
-        console.log(find_hand_result.index);
-        console.log(combinations);
-        for (j = 0; j < combinations.length; j++) {
-            if (test_combo(find_hand_result.hands[combinations[j][0]], find_hand_result.hands[combinations[j][0]], combo_sel)) {
+        for (var j = 0; j < combinations.length; j++) {
+            if (test_combo(find_hand_result.hands[combinations[j][0]], find_hand_result.hands[combinations[j][1]], combo_sel)) {
                 combo_found = true;
                 var team2_indexes = _.xor([0,1,2,3], [combinations[j][0], combinations[j][1]]);
                 result = {
@@ -643,145 +642,5 @@ var m = (function() {
 
 
 
-// testing suite
-
-function pretty_make_hand(r) {
-    return 'found      : ' + r.found                     + '\n' +
-           'iterations : ' + r.iterations                + '\n' +
-           'team1.A    : ' + '\n' + r.team1.A.toString() +
-           'team1.B    : ' + '\n' + r.team1.B.toString() +
-           new m.Combine(r.team1.A, r.team1.B).toString()
-}
-
-function test_results(test_name, r, hand_sel, combo_sel) {
-    var fail = false;
-    var result = []
-    result.push(test_name);
-    if (hand_sel.points.include || hand_sel.distr.include) {
-        //    hand is selected
-        if ((hand_sel.points.include) && (r.team1.A[hand_sel.points.type].total === hand_sel.points.count)) {
-            // hand points match
-            //result.push('pass - hand points match');
-        }
-        else {
-            // hand points don't match
-            result.push("error - hand points don't match");
-            fail = true;
-        }
-        if ((hand_sel.distr.include) && (r.team1.A.distr === [hand_sel.spades,
-                hand_sel.hearts, hand_sel.diamonds, hand_sel.clubs])) {
-            // hand distr match
-        }
-        else {
-            // hand distr don't match
-            result.push("error - hand distr doesn't match");
-            fail = true;
-        }
-    }
-
-    if (combo_sel.points.include || combo_sel.distr.include) {tes
-        // combo is selected
-        var combo = new Combination(r.hand1.A, r.hand1.B);
-        if ((combo_sel.points.include) && (combo[combo_sel.points.type].total === combo_sel.points.count)) {
-            // combo points ok
-        }
-        else {
-            // combo points fail
-            result.push("error - combo points don't match");
-            fail = true;
-        }
-        if ((combo_sel.distr.include) && (combo.distr === [combo_sel.spades,
-                combo_sel.hearts, combo_sel.diamonds, combo_sel.clubs])) {
-            // hand distr match
-        }
-        else {
-            // hand distr don't match
-            result.push("error - combo distr doesn't match");
-            fail = true;
-        }
-    }
-    if (fail) {
-        result.push('test fails');
-        return result;
-    }
-    else {
-        return [test_name + ' pass'];
-    }
-}
 
 
-// no hand, combo selection
-hand_sel =  {points: {include: false, type  : 'hcp', count: 10 },
-            distr  : {include: false, spades: 5,     hearts:3, diamonds:3, clubs:2}};
-combo_sel = {points: {include: false, type  : 'lp',  count: 20},
-            distr  : {include: false, spades: 8,     hearts:6, diamonds:6, clubs:6}};
-var r = m.make_hand(hand_sel, combo_sel);
-console.log(pretty_make_hand(r));
-var t = test_results('test 1', r, hand_sel, combo_sel);
-console.log(t);
-
-
-
-
-// hand only selection, no combo
-//  hand points only
-hand_sel = {points: {include: true, type: 'hcp', count: 10 },
-    distr:  {include: false, spades: 5, hearts:3, diamonds:3, clubs:2}};
-combo_sel = {points: {include: false, type: 'lp', count: 20},
-    distr:  {include: false, spades: 8, hearts:6, diamonds:6, clubs:6}};
-var r = m.make_hand(hand_sel, combo_sel);
-console.log(pretty_make_hand(r));
-// hand distr only
-hand_sel = {points: {include: false, type: 'hcp', count: 10 },
-    distr:  {include: true, spades: 5, hearts:3, diamonds:3, clubs:2}};
-combo_sel = {points: {include: false, type: 'lp', count: 20},
-    distr:  {include: false, spades: 8, hearts:6, diamonds:6, clubs:6}};
-var r = m.make_hand(hand_sel, combo_sel);
-console.log(pretty_make_hand(r));
-// hand points and distr only
-hand_sel = {points: {include: true, type: 'hcp', count: 10 },
-    distr:  {include: true, spades: 5, hearts:3, diamonds:3, clubs:2}};
-combo_sel = {points: {include: false, type: 'lp', count: 20},
-    distr:  {include: false, spades: 8, hearts:6, diamonds:6, clubs:6}};
-var r = m.make_hand(hand_sel, combo_sel);
-console.log(pretty_make_hand(r));
-
-// combo only selection, no hand
-//  combo points only
-hand_sel = {points: {include: false, type: 'hcp', count: 10 },
-    distr:  {include: false, spades: 5, hearts:3, diamonds:3, clubs:2}};
-combo_sel = {points: {include: true, type: 'lp', count: 20},
-    distr:  {include: false, spades: 8, hearts:6, diamonds:6, clubs:6}};
-var r = m.make_hand(hand_sel, combo_sel);
-console.log(pretty_make_hand(r));
-// combo distr only
-hand_sel = {points: {include: false, type: 'hcp', count: 10 },
-    distr:  {include: false, spades: 5, hearts:3, diamonds:3, clubs:2}};
-combo_sel = {points: {include: false, type: 'lp', count: 20},
-    distr:  {include: true, spades: 8, hearts:6, diamonds:6, clubs:6}};
-var r = m.make_hand(hand_sel, combo_sel);
-console.log(pretty_make_hand(r));
-// combo points and distr only
-hand_sel = {points: {include: false, type: 'hcp', count: 10 },
-    distr:  {include: false, spades: 5, hearts:3, diamonds:3, clubs:2}};
-combo_sel = {points: {include: true, type: 'lp', count: 20},
-    distr:  {include: true, spades: 8, hearts:6, diamonds:6, clubs:6}};
-var r = m.make_hand(hand_sel, combo_sel);
-console.log(pretty_make_hand(r));
-
-// combo and hand selection
-//  points only
-hand_sel = {points: {include: true, type: 'hcp', count: 10 },
-    distr:  {include: false, spades: 5, hearts:3, diamonds:3, clubs:2}};
-combo_sel = {points: {include: true, type: 'hcp', count: 20},
-    distr:  {include: false, spades: 8, hearts:6, diamonds:6, clubs:6}};
-var r = m.make_hand(hand_sel, combo_sel);
-console.log(pretty_make_hand(r));
-
-//  distr only
-hand_sel = {points: {include: false, type: 'hcp', count: 10 },
-    distr:  {include: true, spades: 5, hearts:3, diamonds:3, clubs:2}};
-combo_sel = {points: {include: false, type: 'hcp', count: 20},
-    distr:  {include: true, spades: 8, hearts:6, diamonds:6, clubs:6}};
-var r = m.make_hand(hand_sel, combo_sel);
-console.log(pretty_make_hand(r));
