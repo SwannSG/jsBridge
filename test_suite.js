@@ -221,3 +221,26 @@ show_test_results('test 11', hand_sel, combo_sel);
 
 console.log('*****************END******************');
 
+
+/*
+* 5-card major hand and partnership game
+* hand_sel = {};
+* hand_sel.points.include    = true;
+* hand_sel.points.type       = 'hcp';
+* hand_sel.points.count      = 14;
+* hand_sel.distr.include     = true;
+* hand_sel.distr.spades      = 3
+* hand_sel.distr..hearts     = 5
+* hand_sel.distr..diamonds   = 3
+* hand_sel.distr..clubs      = 2
+*
+* combo_sel = {};
+* combo_sel.points.include   = true;
+* combo_sel.points.type      = 'hcp';
+* combo_sel.points.count     = 11;
+* combo_sel.distr.include    = true;
+* combo_sel.distr.spades     = 4
+* combo_sel.distr..hearts    = 3
+* combo_sel.distr..diamonds  = 3
+* combo_sel.distr..clubs     = 3
+*/
