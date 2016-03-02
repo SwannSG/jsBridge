@@ -1,0 +1,33 @@
+# comments
+state: opener
+prev_bid: none
+nb	responder	p(hp,0,12)
+1c	responder	p(lp,13,22)	s(c,gte,2)	s(d,lt,4) s(h,lte,4) s(s,lte,4)	
+1d	responder	p(lp,13,22)	s(d,gte,4)	s(h,lte,4) s(s,lte,4)
+1h	responder	p(lp,13,22)	s(h,gte,5)	s(s,lte,4)
+1s	responder	p(lp,13,22)	s(s,gte,5)
+1nt	responder	p(hp,15,17) s(h,lte,4) s(s,lte,4) dt(lte,1)
+2c	responder	p(hp,23,40)
+2d	responder	p(hp,6,11)	s(d,eq,6)
+2h	responder	p(hp,6,11)	s(h,eq,6)
+2s	responder	p(hp,6,11)	s(s,eq,6)
+2nt	responder	p(hp,20,21) s(h,lte,4) s(s,lte,4) dt(lte,1)
+priority: 2nt 1s 1h 1nt 1d 1c 
+
+state	: responder
+prev_bid: 1c
+nb	p(lp,0,5)
+1d	p(lp,6,9)	s(d,gte,4)
+
+state	: responder
+prev_bid: 1d
+nb	p(lp,0,5)
+1h	p(lp,6,9)	s(h,gte,4)
+
+state	: responder
+prev_bid: 1nt
+next_state: ns(2c,stayman) ns((2d,2h),transfer)
+nb	p(lp,0,5)
+1d	p(lp,6,9)	s(d,gte,4)
+
+

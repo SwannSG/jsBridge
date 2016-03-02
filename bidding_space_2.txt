@@ -1,0 +1,48 @@
+state: opener
+prev_bid: none
+nb	p(hp,0,12)
+1c	p(lp,13,22)	s(c,gte,2)	s(d,lt,4) s(h,lte,4) s(s,lte,4)	
+1d	p(lp,13,22)	s(d,gte,4)	s(h,lte,4) s(s,lte,4)
+1h	p(lp,13,22)	s(h,gte,5)	s(s,lte,4)
+1s	p(lp,13,22)	s(s,gte,5)
+1nt	p(hp,15,17) s(h,lte,4) s(s,lte,4) dt(lte,1)
+2c	p(hp,23,40)
+2d	p(hp,6,11)	s(d,eq,6)
+2h	p(hp,6,11)	s(h,eq,6)
+2s	p(hp,6,11)	s(s,eq,6)
+2nt	p(hp,20,21) s(h,lte,4) s(s,lte,4) dt(lte,1)
+priority: 2nt 1s 1h 1nt 1d 1c a b c d 
+
+state	: responder
+prev_bid: 1c
+nb	p(lp,0,5)
+1d	p(lp,6,9)	s(d,gte,4)
+1h	p(lp,6,9)	s(h,gte,4)
+1s	p(lp,6,9)	s(s,gte,4)
+1nt p(hp,6,9)	s(s,lt,4)	s(h,lt,4)	s(d,lt,4) 	
+2c	p(lp,10,40)	s(c,gte,4)
+2d	p(lp,10,40)	s(d,gte,4)
+2h	p(lp,10,40)	s(d,gte,4)
+2s	p(lp,10,40)	s(d,gte,4)
+priority: 2s 2h 2d 2c 1s 1h 1nt 1d
+
+state	: responder
+prev_bid: 1d
+nb	p(lp,0,5)
+1h	p(lp,6,9)	s(h,gte,4)
+1s	p(lp,6,9)	s(s,gte,4)
+1nt p(hp,6,9)	s(s,lt,4)	s(h,lt,4) 	
+2c	p(lp,10,40)	s(c,gte,4)
+2d	p(lp,10,40)	s(d,gte,4)
+2h	p(lp,10,40)	s(d,gte,4)
+2s	p(lp,10,40)	s(d,gte,4)
+priority: 2s 2h 2d 2c 1s 1h 1nt
+
+state	: responder
+prev_bid: 1h
+nb	p(lp,0,5)
+1s	p(lp,6,9)	s(s,eq,4)
+1nt p(hp,6,9)	s(s,lte,3) s(h,lte,3)
+
+
+

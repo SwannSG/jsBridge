@@ -1,0 +1,16 @@
+state: opener
+prev_bid: none
+nb	p(hp,0,12)
+1c	p(lp,13,22)	s(c,gte,2)	s(d,lt,4) s(h,lte,4) s(s,lte,4)	
+
+state	: responder
+prev_bid: 1c
+nb	p(lp,0,5)
+1d	p(lp,6,9)	s(d,gte,4)
+
+state	: responder
+prev_bid: 1d
+nb	p(lp,0,5)
+1h	p(lp,6,9)	s(h,gte,4)
+
+

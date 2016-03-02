@@ -242,6 +242,112 @@ var m = (function() {
         }
     };
 
+
+    var get_suit_name = function(suit_char) {
+        switch (suit_char) {
+            case 's':
+                return 'spades';
+            case 'h':
+                return 'hearts';
+            case 'd':
+                return 'diamonds';
+            case 'c':
+                return 'clubs';
+        }
+    }
+
+
+    var hasDoubletons = function(condition, count) {
+        // test if hand has a certain number of doubletons
+        var no_of_doubletons = 0;
+        if (this.count.spades == 2){no_of_doubletons++;}
+        if (this.count.hearts == 2){no_of_doubletons++;}
+        if (this.count.diamonds == 2){no_of_doubletons++;}
+        if (this.count.clubs == 2){no_of_doubletons++;}
+        switch (condition) {
+            case 'lte':
+                if (no_of_doubletons<=count) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+        }
+        console.log('hasDoubletons - no solution found')
+    };
+
+
+    var hasPointsBand = function(points_type, lb, ub) {
+        // lb = lower bound inclusive, ub = upper bound inclusive
+        switch (points_type) {
+            case 'hcp':
+                if (this.hcp.total >= lb && this.hcp.total <= ub) {
+                    return true;
+                }
+                break;
+            case 'lp':
+                if (this.lp.total >= lb && this.lp.total <= ub) {
+                    return true;
+                }
+                break;
+            case 'sp':
+                if (this.sp.total >= lb && this.sp.total <= ub) {
+                    return true;
+                }
+                break;
+        }
+        return false;
+    };
+
+
+    var hasSuitLength = function(suit, condition, count) {
+            suit = get_suit_name(suit);
+            var suit_length = this.count[suit];
+            switch (condition) {
+                case 'gte':
+                    if (suit_length >= count) {
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+
+                case 'gt':
+                    if (suit_length > count) {
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+
+                case 'eq':
+                    if (suit_length === count) {
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+
+                case 'lt':
+                    if (suit_length < count) {
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+
+                case 'lte':
+                    if (suit_length <= count) {
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+            }
+        };
+
+
+
     var displayCombineObj = function() {
         return 'Combine' + '\n'
             + 'distr: ' + [this.count.spades, this.count.hearts, this.count.diamonds, this.count.clubs] + '\n'
@@ -293,6 +399,9 @@ var m = (function() {
         toString: displayDealObj
     };
 
+
+
+    var skaap = function() {return true;};
 
     /* Hand constructor
     *   Takes a shuffled pack [cards as integers] as single parameter, x = new Hand(deal)
@@ -372,9 +481,36 @@ var m = (function() {
         if (_.isFunction(hasDistr) !== 'function') {
             Hand.prototype.hasDistr = hasDistr;
         }
+
+        if (_.isFunction(hasPointsBand) !== 'function') {
+            Hand.prototype.hasPointsBand = hasPointsBand;
+        }
+
+        if (_.isFunction(hasSuitLength) !== 'function') {
+            Hand.prototype.hasSuitLength = hasSuitLength;
+        }
+
+        if (_.isFunction(hasDoubletons) !== 'function') {
+            Hand.prototype.hasDoubletons = hasDoubletons;
+        }
+
+
     };
     Hand.prototype = {constructor: Hand,
                       toString:displayHandObj};
+    Hand.prototype = {constructor: Hand,
+        hasPoints: hasPoints};
+    Hand.prototype = {constructor: Hand,
+        hasDistr: hasDistr};
+
+    Hand.prototype = {constructor: Hand,
+        hasPointsBand: hasPointsBand};
+
+    Hand.prototype = {constructor: Hand,
+        hasSuitLength: hasSuitLength};
+
+    Hand.prototype = {constructor: Hand,
+        hasDoubletons: hasDoubletons};
 
 
 
@@ -562,7 +698,6 @@ var m = (function() {
     *
     * */
     var make_hand = function(hand_sel, combo_sel) {
-
         if ( (hand_sel.points.include === false && hand_sel.distr.include === false) &&
              (combo_sel.points.include === false && combo_sel.distr.include === false) ) {
             // no hand or combo selection criteria
@@ -637,10 +772,20 @@ var m = (function() {
 
 //  make public
     return {make_hand:      make_hand,
-            Combine  :      Combine};
+            Combine  :      Combine,
+
+        // methods below are only exposed for debugging
+            Deal     :      Deal,
+            Hand     :      Hand,
+            hasPoints:      hasPoints
+    };
 })();
 
 
-
-
-
+//hand_sel = {points: {include: true, type: 'hcp', count: 10 },
+//    distr:  {include: false, spades: 5, hearts:3, diamonds:3, clubs:2}};
+//combo_sel = {points: {include: false, type: 'lp', count: 20},
+//    distr:  {include: false, spades: 8, hearts:6, diamonds:6, clubs:6}};
+//
+//var d = new m.Deal();
+//h = new m.Hand(d.a);

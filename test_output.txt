@@ -1,0 +1,27 @@
+
+Opener (none)
+priority 	2nt	1s	1h	1nt	1d	1c
+ nb responder 	hp0-12  
+ 1c responder 	lp13-22  	♣≥2 	♢<4 	♡≤4 	♠≤4
+ 1d responder 	lp13-22  	♢≥4 	♡≤4 	♠≤4
+ 1h responder 	lp13-22  	♡≥5 	♠≤4
+ 1s responder 	lp13-22  	♠≥5
+ 1nt responder 	hp15-17  	♡≤4 	♠≤4 	dt≤1
+ 2c responder 	hp23-40 
+ 2d responder 	hp6-11   	♢=6
+ 2h responder 	hp6-11   	♡=6
+ 2s responder 	hp6-11   	♠=6
+ 2nt responder 	hp20-21  	♡≤4 	♠≤4 	dt≤1
+
+Responder (1c)
+ nb p
+ 1d p 	♢≥4
+
+Responder (1d)
+ nb p
+ 1h p 	♡≥4
+
+Responder (1nt)
+ next_stat e
+ nb p
+ 1d p 	♢≥4
