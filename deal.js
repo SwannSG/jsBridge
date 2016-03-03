@@ -283,6 +283,14 @@ load(['../jspy/py_lite.js']);
                     return 'diamonds';
                 case 'c':
                     return 'clubs';
+                case 'spades':
+                    return 'spades';
+                case 'hearts':
+                    return 'hearts';
+                case 'diamonds':
+                    return 'diamonds';
+                case 'clubs':
+                    return 'clubs';
             }
         }
 

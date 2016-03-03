@@ -249,34 +249,51 @@ var result = deal.make_hand(hand_sel, combo_sel);
 
 var hand_1_A = result.team1.A
 
-// To invoke a method 
-hand_1_A.hasPoints('hcp', 13)
 
-```
+// Hand methods
+hand_1_A.toString()										displays the Hand object nicely
 
-
-
-
-
-**toString()**										displays the Hand object nicely
-
-
-**hasPoints(points_type, points)**					returns boolean
-	points_type		'hcp' or 'lp' or 'sp'
+hand_1_A.hasPoints(points_type, points)					returns boolean
+/*	points_type		'hcp' or 'lp' or 'sp'
 	points			integer, exact number of points
+*/
 
-**hasPointsBand(points_type, lb, ub)**				returns boolean
-	points_type		'hcp' or 'lp' or 'sp'
+hand_1_A.hasPointsBand(points_type, lb, ub)				returns boolean
+/*	points_type		'hcp' or 'lp' or 'sp'
 	lb 				integer, lower band of points 
 	ub 				integer, upper band of points
+*/
 
-
-**hasDistr(nspades, nhearts, ndiamonds, nclubs)**	return boolean
-	nspades			integer, number of spades
+hand_1_A.hasDistr(nspades, nhearts, ndiamonds, nclubs)	return boolean
+/*	nspades			integer, number of spades
 	nhearts			integer, number of hearts
 	ndiamonds		integer, number of diamonds
 	nclubs			integer, number of clubs
+*/
 
+
+hand_1_A.hasSuitLength(suit, condition, count)			return boolean
+/*	suit			's' or 'spades'
+					'h' or 'hearts'
+					'd' or 'diamonds'
+					'c' or 'clubs'
+	
+	condition		'gte' means >=
+					'gt'  means >
+					'eq'  means =
+					'lt'  means <
+					'lte' means <=	
+
+	count			integer, number in specified suit 
+*/
+
+
+hand_1_A.hasDoubletons(condition, count)				return boolean
+/*	condition		'lte' means <=
+	count			integer, number of doubletons in hand
+*/
+
+```
 
 
 

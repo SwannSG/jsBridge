@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ecf18f09-35bc-40a1-9cf8-c3f2c0b8e8b9" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/deal.js" afterPath="$PROJECT_DIR$/deal.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/deal.md" afterPath="$PROJECT_DIR$/deal.md" />
     </list>
     <ignored path="jsBridge.iws" />
@@ -41,8 +42,8 @@
       <file leaf-file-name="deal.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/deal.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33273703" vertical-offset="3234" max-vertical-offset="13380">
-              <caret line="228" column="12" selection-start-line="228" selection-start-column="12" selection-end-line="228" selection-end-column="69" />
+            <state vertical-scroll-proportion="0.33213645" vertical-offset="4270" max-vertical-offset="13500">
+              <caret line="297" column="38" selection-start-line="297" selection-start-column="38" selection-end-line="297" selection-end-column="54" />
               <folding />
             </state>
           </provider>
@@ -748,8 +749,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/deal.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33273703" vertical-offset="3234" max-vertical-offset="13380">
-          <caret line="228" column="12" selection-start-line="228" selection-start-column="12" selection-end-line="228" selection-end-column="69" />
+        <state vertical-scroll-proportion="0.33213645" vertical-offset="4270" max-vertical-offset="13500">
+          <caret line="297" column="38" selection-start-line="297" selection-start-column="38" selection-end-line="297" selection-end-column="54" />
           <folding />
         </state>
       </provider>
