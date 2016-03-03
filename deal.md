@@ -230,10 +230,33 @@ ltc.hearts						integer 0 to 3
 ltc.spades						integer 0 to 3
 ltc.total						integer 0 to 12
 //---------------------------------------------------------------------------
+```
 
 ## Hand object methods
 
 All these methods are held on the Hand.prototype. 
+
+```javascript
+
+var result = deal.make_hand(hand_sel, combo_sel);
+
+// value of 'result'
+{found: true,
+ iterations: 105,
+ team1: {A: handObj, B: handObj},
+ team2: {A: handObj, B: handObj}
+}
+
+var hand_1_A = result.team1.A
+
+// To invoke a method 
+hand_1_A.hasPoints('hcp', 13)
+
+```
+
+
+
+
 
 **toString()**										displays the Hand object nicely
 
