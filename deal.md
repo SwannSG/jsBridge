@@ -4,7 +4,7 @@
 
 By default it attaches a property name of **deal** to the global object.
 
-The simplest way to a generate new board is to use the **deal.make_hand()** method.
+The simplest way to generate a new board is to use the **deal.make_hand()** method.
 
 **deal.make_hand()** takes two parameters **hand_sel** and **combo_sel**.
 
@@ -35,7 +35,7 @@ board.team1.A and board.team1.B always contains the selected partnership based o
 */
 ```
 
-###Understanding the hand and combo selectors 
+##Understanding the hand and combo selectors 
 
 
 **hand_sel** is an object literal. It is used as a hand selector.  
@@ -95,7 +95,7 @@ Example of **hand_sel and combo_sel** to generate a hand with a 5-card major (he
 */
 ```
 
-### Understanding what deal.make_hand(hand_sel, combo_sel) returns
+## Understanding what deal.make_hand(hand_sel, combo_sel) returns
 
 **var result = deal.make_hand(hand_sel, combo_sel);**
 
@@ -136,7 +136,7 @@ if no solution is found *result* will contain an object like this.
 }
 ```
 
-###Hand Object
+##Hand Object
 
 The Hand object represents a hand that has been dealt to a player. Each card is represented by an integer from 1 to 52.
 
@@ -148,7 +148,7 @@ The Hand object represents a hand that has been dealt to a player. Each card is 
 |Spades   | 40 to 53      | 
 
 
-## Hand object properties
+### Hand object properties
 
 ```javascript
 
@@ -232,7 +232,7 @@ ltc.total						integer 0 to 12
 //---------------------------------------------------------------------------
 ```
 
-## Hand object methods
+### Hand object methods
 
 All these methods are held on the Hand.prototype. 
 
@@ -295,7 +295,7 @@ hand_1_A.hasDoubletons(condition, count)				return boolean
 
 ```
 
-###Combine constructor
+##Combine constructor
 
 The Combine constructor allows two Hand objects to be combined. This can though of as the partnership in a bridge context.
 
@@ -315,7 +315,7 @@ var result = deal.make_hand(hand_sel, combo_sel);
 var combo = Combine(result.team1.A, result.team1.B) 
 ```
 
-##Combine object properties 
+###Combine object properties 
 
 
 
@@ -336,7 +336,7 @@ combo.distr						array [nspades, nhearts, ndiamonds, nclubs]
 ```
 
 
-##Combine object methods
+###Combine object methods
 
 
 
