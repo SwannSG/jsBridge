@@ -103,6 +103,9 @@ Example of **hand_sel and combo_sel** to generate a hand with a 5-card major (he
 If a solution is found *result* will contain an object like this.
 
 ```javascript
+
+var result = deal.make_hand(hand_sel, combo_sel);
+
 // value of 'result'
 {found: true,
  iterations: 105,
@@ -230,11 +233,26 @@ ltc.total						integer 0 to 12
 
 ## Hand object methods
 
+All these methods are held on the Hand.prototype. 
+
+**toString()**										displays the Hand object nicely
 
 
+**hasPoints(points_type, points)**					returns boolean
+	points_type		'hcp' or 'lp' or 'sp'
+	points			integer, exact number of points
+
+**hasPointsBand(points_type, lb, ub)**				returns boolean
+	points_type		'hcp' or 'lp' or 'sp'
+	lb 				integer, lower band of points 
+	ub 				integer, upper band of points
 
 
-
+**hasDistr(nspades, nhearts, ndiamonds, nclubs)**	return boolean
+	nspades			integer, number of spades
+	nhearts			integer, number of hearts
+	ndiamonds		integer, number of diamonds
+	nclubs			integer, number of clubs
 
 
 
