@@ -111,10 +111,15 @@ If a solution is found *result* will contain an object like this.
 }
 ```
 result.true			means a solution was found
+
 result.iterations	shows the number of random hands that were generated to find a solution
-result.team1.A		solution hand
-result.team1.B		solution hand to be included in partnership 'team1'
+
+result.team1.A		solution Hand object selected by hand_sel
+
+result.team1.B		Hand object to be included in partnership 'team1' selected by combo_sel
+
 result.team2.A		hand for other 'team2'
+
 result.team2.A		hand for other 'team2'
 
 
@@ -127,6 +132,110 @@ if no solution is found *result* will contain an object like this.
  iterations: 1000000, // set by MAX_ITERATIONS
 }
 ```
+
+###Hand Object
+
+The Hand object represents a hand that has been dealt to a player. Each card is represented by an integer from 1 to 52.
+
+| Suit    | Integer Range |
+|:-------:|:-------------:|
+|Clubs    | 1  to 13	  |
+|Diamonds |	14 to 26      |
+|Hearts	  | 27 to 39	  |	
+|Spades   | 40 to 53      | 
+
+
+## Hand object properties
+
+```javascript
+
+// card representation as integers-------------------------------------------
+cards						array of integers representing cards in the hand.
+suits.clubs					array of integers representing clubs
+suits.diamonds				array of integers representing diamonds
+suits.hearts				array of integers representing hearts
+suits.spades				array of integers representing spades
+// --------------------------------------------------------------------------
+
+// distribution of hand------------------------------------------------------
+distr						array [nspades, nhearts, ndiamonds, nclubs]
+count.clubs					integer, number of clubs
+count.diamonds				integer, number of diamonds
+count.hearts				integer, number of hearts
+count.spades				integer, number of spades
+// --------------------------------------------------------------------------
+
+
+// description of honours in a hand -----------------------------------------
+honours.clubs.tens				numeric 1 or 0				
+honours.clubs.jacks				numeric 1 or 0
+honours.clubs.queens			numeric 1 or 0
+honours.clubs.kings				numeric 1 or 0
+honours.clubs.aces				numeric 1 or 0
+
+honours.diamonds.tens			numeric 1 or 0				
+honours.diamonds.jacks			numeric 1 or 0
+honours.diamonds.queens			numeric 1 or 0
+honours.diamonds.kings			numeric 1 or 0
+honours.diamonds.aces			numeric 1 or 0
+
+honours.hearts.tens				numeric 1 or 0				
+honours.hearts.jacks			numeric 1 or 0
+honours.hearts.queens			numeric 1 or 0
+honours.hearts.kings			numeric 1 or 0
+honours.hearts.aces				numeric 1 or 0
+
+honours.spades.tens				numeric 1 or 0				
+honours.spades.jacks			numeric 1 or 0
+honours.spades.queens			numeric 1 or 0
+honours.spades.kings			numeric 1 or 0
+honours.spades.aces				numeric 1 or 0
+// --------------------------------------------------------------------------
+
+
+// high card points 'hcp' (ace=4, king=3, queen=2, jack=1)-------------------
+hcp.clubs						integer 0 to 10
+hcp.diamonds					integer 0 to 10
+hcp.hearts						integer 0 to 10
+hcp.spades						integer 0 to 10
+hcp.total						integer 0 to 40, total hcp in hand
+// --------------------------------------------------------------------------
+
+
+// long points 'lp' = 'hcp' + (suit_length-4)-------------------------------- 
+lp.clubs						integer 0 to 10
+lp.diamonds						integer 0 to 10
+lp.hearts						integer 0 to 10
+lp.spades						integer 0 to 10
+lp.total						integer 0 to 40, total hcp in hand
+// --------------------------------------------------------------------------
+
+
+// short points 'sp' = 'hcp' + 3 (void) + 2 (singleton) + 1 (dobleton)------- 
+lp.clubs						integer 0 to 10
+lp.diamonds						integer 0 to 10
+lp.hearts						integer 0 to 10
+lp.spades						integer 0 to 10
+lp.total						integer 0 to 40, total hcp in hand
+// --------------------------------------------------------------------------
+
+
+// losing trick count 'ltc'--------------------------------------------------
+ltc.clubs						integer 0 to 3
+ltc.diamonds					integer 0 to 3
+ltc.hearts						integer 0 to 3
+ltc.spades						integer 0 to 3
+ltc.total						integer 0 to 12
+//---------------------------------------------------------------------------
+
+## Hand object methods
+
+
+
+
+
+
+
 
 
 
