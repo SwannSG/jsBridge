@@ -295,6 +295,71 @@ hand_1_A.hasDoubletons(condition, count)				return boolean
 
 ```
 
+###Combine constructor
+
+The Combine constructor allows two Hand objects to be combined. This can though of as the partnership in a bridge context.
+
+
+```javascript
+
+var result = deal.make_hand(hand_sel, combo_sel);
+
+// value of 'result'
+{found: true,
+ iterations: 105,
+ team1: {A: handObj, B: handObj},
+ team2: {A: handObj, B: handObj}
+}
+
+// combine the hands
+var combo = Combine(result.team1.A, result.team1.B) 
+```
+
+##Combine object properties 
+
+
+
+```javascript
+// combine the hands
+var combo = Combine(result.team1.A, result.team1.B) 
+
+combo.count.clubs				integer, number of clubs in both hands
+combo.count.diamonds			integer, number of diamonds in both hands
+combo.count.hearts				integer, number of hearts in both hands
+combo.count.spades				integer, number of spades in both hands
+
+combo.hcp.total					numeric, total high card points in both hands
+combo.lp.total					numeric, total long points in both hands
+combo.sp.total					numeric, total short points in both hands
+
+combo.distr						array [nspades, nhearts, ndiamonds, nclubs]
+```
+
+
+##Combine object methods
+
+
+
+```javascript
+// combine the hands
+var combo = Combine(result.team1.A, result.team1.B) 
+
+combo.toString()											displays the Combine object nicely
+
+combo.hasDistr(nspades, nhearts, ndiamonds, nclubs)			return boolean
+/*	nspades			integer, number of spades in both hands
+	nhearts			integer, number of hearts in both hands
+	ndiamonds		integer, number of diamonds in both hands
+	nclubs			integer, number of clubs in both hands
+*/
+
+combo.hasPoints(points_type, points)						returns boolean
+/*	points_type												'hcp' or 'lp' or 'sp'
+	points													integer, exact number of points in both hands
+*/
+```
+
+
 
 
 
