@@ -8,19 +8,22 @@ load(['bridge_utils.js']);
 
 hand_sel =  {points: {include: true, type  : 'hcp', count: 14 },
     distr  : {include: true, spades: 4,     hearts:5, diamonds:'*', clubs:'*'}};
-combo_sel = {points: {include: true, type  : 'hcp',  count: 9},
+combo_sel = {points: {include: true, type  : 'hcp',  count: 21},
     distr  : {include: true, spades: 7,     hearts:8, diamonds:'*', clubs:'*'}};
+
 
 
 if (bridge_utils.selectorsOk(hand_sel, combo_sel)) {
     var board = deal.make_hand(hand_sel, combo_sel)
     if (board.found) {
-        var static_board = [team1.A.cards, team1.B.cards, team2.A.cards, team2.B.cards];
+        var static_board = [board.team1.A.cards, board.team1.B.cards, board.team2.A.cards, board.team2.B.cards];
     }
     else {
         console.log('no solution');
     }
 }
 else {
-    console.log('error: hand_sel, combo_sel');
+    console.log('error: hand_sel, combo_sel not ok');
 }
+
+

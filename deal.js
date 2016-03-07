@@ -245,7 +245,7 @@ load(['../jspy/py_lite.js']);
             if ((this.count.spades === nspades || nspades==='*') &&
                 (this.count.hearts === nhearts || nhearts==='*') &&
                 (this.count.diamonds === ndiamonds || ndiamonds==='*') &&
-                (this.count.clubs === nclubs || nhearts==='*') ){
+                (this.count.clubs === nclubs || nclubs==='*') ){
                     return true;
             }
             else {
@@ -864,12 +864,14 @@ load(['../jspy/py_lite.js']);
             else if ((hand_sel.points.include === true || hand_sel.distr.include === true) &&
                 (combo_sel.points.include === true || combo_sel.distr.include === true)) {
                 // hand and combo selection criteria
-
+                console.log('hand and combo selection criteria');
                 // need to do multiple iterations
                 var iterations = 0;
                 var k = 0;
                 while (k < MAX_ITERATIONS) {
+                    console.log(k);
                     var find_hand_result = find_hand(hand_sel, combo_sel);
+                    console.log('aaa');
                     iterations = iterations + find_hand_result.iterations;
                     if (find_hand_result.hand_found) {
                         console.log('hand_found: ' + k);

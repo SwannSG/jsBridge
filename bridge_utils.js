@@ -149,7 +149,8 @@ load(['deal.js']);
         if (hand_sel.points.include && combo_sel.points.include) {
             // hand and combo points selection
             if ((hand_sel.points.count >= 0 && hand_sel.points.count <= 40) &&
-                (hand_sel.points.count <= combo_sel.points.count)) {
+                (hand_sel.points.count <= combo_sel.points.count) &&
+                (combo_sel.points.count >= 0 && combo_sel.points.count <= 40)) {
                 // hand and combo points selection ok
                 pointsOk = true;
             }
