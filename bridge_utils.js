@@ -140,8 +140,59 @@ load(['deal.js']);
             // no hand or combo distr selection
             distrOk = true;
         }
-        return distrOk;
+
+        console.log(errorMsg);
+        errorMsg = ''
+        // distrOk should be set true at this point
+        var pointsOk = false;
+        // test points
+        if (hand_sel.points.include && combo_sel.points.include) {
+            // hand and combo points selection
+            if ((hand_sel.points.count >= 0 && hand_sel.points.count <= 40) &&
+                (hand_sel.points.count <= combo_sel.points.count)) {
+                // hand and combo points selection ok
+                pointsOk = true;
+            }
+            else {
+                // hand and combo points selection not ok
+                errorMsg = 'hand and combo points selection not ok';
+            }
+        }
+        else if (hand_sel.points.include) {
+            // hand points selection
+            if (hand_sel.points.count >= 0 && hand_sel.points.count <= 40) {
+                // hand points selection ok
+                pointsOk = true;
+            }
+            else {
+                // hand points selection not ok
+                errorMsg = 'hand points selection not ok';
+            }
+        }
+        else if (combo_sel.points.include) {
+            // combo points selection
+            if (combo_sel.points.count >= 0 && combo_sel.points.count <= 40) {
+                // combo points selection ok
+                pointsOk = true;
+            }
+            else {
+                // combo points selection not ok
+                errorMsg = 'combo points selection not ok'
+            }
+        }
+        else {
+            // no hand or combo points selection
+            pointsOk = true;
+        }
+        if (pointsOk && distrOk) {
+            return true;
+        }
+        else {
+            return false;
+        }
     };
+
+
 
 
         var make_SYM_TO_INT = function (x) {

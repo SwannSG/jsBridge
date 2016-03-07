@@ -61,3 +61,54 @@ combo_sel = {points: {include: false, type  : 'hcp',  count: 9},
     distr  : {include: false, spades: 8,     hearts:6, diamonds:6, clubs:6}};
 result = bridge_utils.selectorsOk(hand_sel, combo_sel);
 assert(result, false, 'eq', 5);
+
+hand_sel =  {points: {include: false, type  : 'hcp', count: 14 },
+    distr  : {include: true, spades: 5,     hearts:2, diamonds:'*', clubs:'*'}};
+combo_sel = {points: {include: false, type  : 'hcp',  count: 9},
+    distr  : {include: false, spades: 8,     hearts:6, diamonds:6, clubs:6}};
+result = bridge_utils.selectorsOk(hand_sel, combo_sel);
+assert(result, true, 'eq', 6);
+
+hand_sel =  {points: {include: false, type  : 'hcp', count: 14 },
+    distr  : {include: true, spades: '*',     hearts:'*', diamonds:'*', clubs:'*'}};
+combo_sel = {points: {include: false, type  : 'hcp',  count: 9},
+    distr  : {include: false, spades: 8,     hearts:6, diamonds:6, clubs:6}};
+result = bridge_utils.selectorsOk(hand_sel, combo_sel);
+assert(result, true, 'eq', 7);
+
+hand_sel =  {points: {include: false, type  : 'hcp', count: 14 },
+    distr  : {include: true, spades: 3,     hearts:4, diamonds:14, clubs:2}};
+combo_sel = {points: {include: false, type  : 'hcp',  count: 9},
+    distr  : {include: false, spades: 8,     hearts:6, diamonds:6, clubs:6}};
+result = bridge_utils.selectorsOk(hand_sel, combo_sel);
+assert(result, false, 'eq', 8);
+
+hand_sel =  {points: {include: false, type  : 'hcp', count: 14 },
+    distr  : {include: true, spades: 3,     hearts:4, diamonds:'$', clubs:2}};
+combo_sel = {points: {include: false, type  : 'hcp',  count: 9},
+    distr  : {include: false, spades: 8,     hearts:6, diamonds:6, clubs:6}};
+result = bridge_utils.selectorsOk(hand_sel, combo_sel);
+assert(result, false, 'eq', 9);
+
+
+hand_sel =  {points: {include: false, type  : 'hcp', count: 14 },
+    distr  : {include: true, spades: 5,     hearts:3, diamonds:3, clubs:2}};
+combo_sel = {points: {include: false, type  : 'hcp',  count: 9},
+    distr  : {include: true, spades: 8,     hearts:6, diamonds:6, clubs:6}};
+result = bridge_utils.selectorsOk(hand_sel, combo_sel);
+assert(result, true, 'eq', 10);
+
+hand_sel =  {points: {include: false, type  : 'hcp', count: 14 },
+    distr  : {include: true, spades: 5,     hearts:3, diamonds:3, clubs:2}};
+combo_sel = {points: {include: false, type  : 'hcp',  count: 9},
+    distr  : {include: true, spades: 8,     hearts:'*', diamonds:6, clubs:6}};
+result = bridge_utils.selectorsOk(hand_sel, combo_sel);
+assert(result, true, 'eq', 11);
+
+hand_sel =  {points: {include: false, type  : 'hcp', count: 14 },
+    distr  : {include: true, spades: 5,     hearts:3, diamonds:3, clubs:2}};
+combo_sel = {points: {include: false, type  : 'hcp',  count: 9},
+    distr  : {include: true, spades: 10,     hearts:'*', diamonds:8, clubs:10}};
+result = bridge_utils.selectorsOk(hand_sel, combo_sel);
+assert(result, false, 'eq', 12);
+
