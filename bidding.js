@@ -2,7 +2,7 @@
  * Created by swannsg on 2016/02/15.
  */
 load(['module.js']);
-load(['bidding_rules.js']);
+load(['db_stub.js']);
 
 
 

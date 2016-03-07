@@ -3,7 +3,7 @@
  */
 // testing suite
 
-load(['module.js']);
+load(['deal.js']);
 
 
 function test_results(test_name, r, hand_sel, combo_sel) {
@@ -39,7 +39,7 @@ function test_results(test_name, r, hand_sel, combo_sel) {
 
         if (combo_sel.points.include || combo_sel.distr.include) {
             // combo is selected
-            var combo = new m.Combine(r.team1.A, r.team1.B);
+            var combo = new deal.Combine(r.team1.A, r.team1.B);
 
             if (combo_sel.points.include) {
                 if (_.isEqual(combo[combo_sel.points.type].total, combo_sel.points.count)) {
@@ -112,7 +112,7 @@ function show_test_sel(hand_sel, combo_sel) {
 
 
 function show_test_results(test_name, hand_sel, combo_sel) {
-    h = new m.make_hand(hand_sel, combo_sel)
+    h = new deal.make_hand(hand_sel, combo_sel)
     var t = test_results(test_name, h, hand_sel, combo_sel);
     console.log('*********************************************************************\n');
     // test results
@@ -122,11 +122,10 @@ function show_test_results(test_name, hand_sel, combo_sel) {
     console.log();
     if (combo_sel.points.include || combo_sel.distr.include) {
         // combo, only include combo if required
-        console.log(new m.Combine(h.team1.A, h.team1.B));
+        console.log(new deal.Combine(h.team1.A, h.team1.B));
     }
     // hand
-    console.log(h.team1.A);
-    console.log('*********************************************************************\n');
+//    console.log('*********************************************************************\n');
 }
 
 
@@ -212,12 +211,38 @@ combo_sel = {points: {include: true, type: 'hcp', count: 20},
     distr:  {include: true, spades: 8, hearts:6, diamonds:6, clubs:6}};
 show_test_results('test 10', hand_sel, combo_sel);
 
-
-hand_sel = {points: {include: false, type: 'hcp', count: 30 },
+// some nasty edge cases
+// edge case 1
+hand_sel = {points: {include: false, type: 'hcp', count: 25 },
     distr:  {include: true, spades: 7, hearts:3, diamonds:2, clubs:1}};
 combo_sel = {points: {include: false, type: 'hcp', count: 20},
     distr:  {include: false, spades: 8, hearts:6, diamonds:6, clubs:6}};
 show_test_results('test 11', hand_sel, combo_sel);
+
+// edge case 2
+hand_sel = {points: {include: true, type: 'hcp', count: 25 },
+    distr:  {include: true, spades: 5, hearts:3, diamonds:2, clubs:3}};
+combo_sel = {points: {include: false, type: 'hcp', count: 20},
+    distr:  {include: false, spades: 8, hearts:6, diamonds:6, clubs:6}};
+show_test_results('test 12', hand_sel, combo_sel);
+
+/*
+// nasty edge case 3
+hand_sel = {points: {include: true, type: 'hcp', count: 25 },
+    distr:  {include: true, spades: 5, hearts:3, diamonds:2, clubs:3}};
+combo_sel = {points: {include: true, type: 'hcp', count: 6},
+    distr:  {include: false, spades: 8, hearts:6, diamonds:6, clubs:6}};
+show_test_results('test 13', hand_sel, combo_sel);
+*/
+
+
+hand_sel =  {points: {include: true, type  : 'hcp', count: 14 },
+    distr  : {include: true, spades: 3,     hearts:5, diamonds:3, clubs:2}};
+combo_sel = {points: {include: true, type  : 'hcp',  count: 9},
+    distr  : {include: true, spades: 4,     hearts:3, diamonds:2, clubs:4}};
+show_test_results('test 14', hand_sel, combo_sel);
+
+
 
 console.log('*****************END******************');
 

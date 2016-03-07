@@ -1,9 +1,16 @@
+/*
+* Need to speed up edge cases
+* counter k for MAX_ITERATIONS is problemtatic
+*
+* */
+
+
 load(['../jspy/py_lite.js']);
 
 
 (function() {
 
-    var global_name = 'deal'
+    var global_name = 'deal';
 
     var INT_TO_SYM = {
         1: '2C',
@@ -71,6 +78,11 @@ load(['../jspy/py_lite.js']);
 
 
     var main = function() {
+
+        var intToSym = function() {
+            return INT_TO_SYM;
+        }
+
         var get_card_symbols = function (cards) {
             /*
              cards: array of integers
@@ -227,20 +239,25 @@ load(['../jspy/py_lite.js']);
 
 
         var hasDistr = function (nspades, nhearts, ndiamonds, nclubs) {
-            if (this.count.spades === nspades && this.count.hearts === nhearts &&
-                this.count.diamonds === ndiamonds && this.count.clubs === nclubs) {
-                return true;
+            // add wildcard * meaning 'any value'
+            //if (this.count.spades === nspades && this.count.hearts === nhearts &&
+            //    this.count.diamonds === ndiamonds && this.count.clubs === nclubs) {
+            if ((this.count.spades === nspades || nspades==='*') &&
+                (this.count.hearts === nhearts || nhearts==='*') &&
+                (this.count.diamonds === ndiamonds || ndiamonds==='*') &&
+                (this.count.clubs === nclubs || nhearts==='*') ){
+                    return true;
             }
             else {
                 return false;
             }
-
         };
 
         var test_combo = function (hand1, hand2, combo_sel) {
             combo = new Combine(hand1, hand2);
             if (combo_sel.points.include && combo_sel.distr.include) {
                 // Combo selection based on points and distribution
+                console.log('test_combo');
                 if (combo.hasPoints(combo_sel.points.type, combo_sel.points.count) &&
                     combo.hasDistr(combo_sel.distr.spades, combo_sel.distr.hearts, combo_sel.distr.diamonds, combo_sel.distr.clubs)) {
                     return true;
@@ -428,15 +445,34 @@ load(['../jspy/py_lite.js']);
          *         o.d: [...] hand4 integers}
          */
         var Deal = function () {
-            var deck = _.shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
-                14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
-                27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
-                40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52])
+            // no argument, generate random deck
+            // one argument, 52 cards
+            // 4 arguments, each array of 12 cards
 
-            this.a = deck.slice(0, 13);
-            this.b = deck.slice(13, 26);
-            this.c = deck.slice(26, 39);
-            this.d = deck.slice(39, 52);
+            if (arguments.length===1) {
+                // pass predetermined board of 52 cards
+                this.a = arguments[0].slice(0, 13);
+                this.b = arguments[0].slice(13, 26);
+                this.c = arguments[0].slice(26, 39);
+                this.d = arguments[0].slice(39, 52);
+            }
+            else if (arguments.length===4) {
+                // pass (hand1_cards, hand2_cards, hand3_cards, hand4_cards)
+                this.a = arguments[0];
+                this.b = arguments[1];
+                this.c = arguments[2];
+                this.d = arguments[3];
+            }
+            else {
+                var deck = _.shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
+                    14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
+                    27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
+                    40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52])
+                this.a = deck.slice(0, 13);
+                this.b = deck.slice(13, 26);
+                this.c = deck.slice(26, 39);
+                this.d = deck.slice(39, 52);
+            }
 
         }
         Deal.prototype = {
@@ -691,6 +727,8 @@ load(['../jspy/py_lite.js']);
             var combinations = [[find_hand_result.index, other_indexes[0]],
                 [find_hand_result.index, other_indexes[1]],
                 [find_hand_result.index, other_indexes[2]]];
+            console.log('combinations');
+            console.log(combinations);
             for (var j = 0; j < combinations.length; j++) {
                 if (test_combo(find_hand_result.hands[combinations[j][0]], find_hand_result.hands[combinations[j][1]], combo_sel)) {
                     combo_found = true;
@@ -774,6 +812,7 @@ load(['../jspy/py_lite.js']);
          *
          * */
         var make_hand = function (hand_sel, combo_sel) {
+            console.log('make_hand');
             if ((hand_sel.points.include === false && hand_sel.distr.include === false) &&
                 (combo_sel.points.include === false && combo_sel.distr.include === false)) {
                 // no hand or combo selection criteria
@@ -833,6 +872,7 @@ load(['../jspy/py_lite.js']);
                     var find_hand_result = find_hand(hand_sel, combo_sel);
                     iterations = iterations + find_hand_result.iterations;
                     if (find_hand_result.hand_found) {
+                        console.log('hand_found: ' + k);
                         var combo_result = find_combo_hand_selected(find_hand_result, combo_sel);
                         if (combo_result.combo_found) {
                             return {
@@ -861,20 +901,22 @@ load(['../jspy/py_lite.js']);
             // methods below are only exposed for debugging
             Deal: Deal,
             Hand: Hand,
-            hasPoints: hasPoints
+            hasPoints: hasPoints,
+            intToSym: intToSym
         };
     };
 
     // test for global window object, as Spider Monkey standalone does not have it
-    if (typeof(window) === 'object')
-    //define globally if it doesn't already exist
-        if(typeof(window[global_name]) === 'undefined'){
+    if (typeof(window) === 'object') {
+        //define globally if it doesn't already exist
+        if (typeof(window[global_name]) === 'undefined') {
             // add the new name to global space
             window[global_name] = deal();
         }
-        else{
+        else {
             console.log("Library already defined.");
         }
+    }
     else {
         // Spider Monkey unknown global name
         // use eval

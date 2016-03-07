@@ -1,0 +1,13 @@
+static hands for testing of bidding
+	specifiy hand as symbol string
+	check there are no ommissions or duplications
+	convert hand_symbol_string to hand_integers 
+
+static_board = [
+	'AC, ... 6S',		// hand1
+	'5C, ....  ',		// hand2
+	'          ',		// hand3
+	'          '		// hand4
+]
+
+

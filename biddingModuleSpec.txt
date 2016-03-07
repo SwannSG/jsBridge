@@ -1,0 +1,153 @@
+Dealing phase: deal.js
+Bidding phase: bid.js
+
+Teams
+	team1.A, team1.B
+	team2.A, team2.B
+
+
+Terminology
+	dlr		dealer
+	lho		left hand opponent
+	rsp		responder
+	rho		right hand opponent
+
+Round of bidding
+	1st		[dlr,lho,rsp,rho]
+	2nd
+
+
+Picture
+
+			   team1.B			
+			responder (rsp)
+
+	  lho						  rho
+	team2.A                     team2.B
+			
+			dealer (dlr)
+			  team1.A
+
+What bidding.js does
+
+1. Allocates a hand to dlr,lho,rsp,rho.
+2. Allows dlr to make a bid.
+3. Allows rsp to make a bid.
+4. For now no interference from lho, rho
+5. Allows cycle of (2,3,4) to continue untill no more bidding.
+6. Record sequence of bids
+	bid_seqs = [] 		sequence of bids always starting with dealer 
+	dealer = 'team1.A'	who is dealer for the hand, for now always set to 'team1.A' 
+	cards for each hand
+
+
+state = 'opener'		intial state	
+npasses = 0				number of consecutive passes
+nround = 0				round number 1st, 2nd, 3rd 
+bid_seq = []			sequence of bids
+bidding_continues = true
+dealer = 'team1.A'
+hands_in_bid_order = [dlr, lho, rsp, rho]
+while (bidding_continues):
+	// start round of bidding
+	nround++
+	for playerHand in hands_in_bid_order:								// describes the bidding order. [dealer - lho - responder - rho]
+		if (playerHand is opposition):
+			// just for now with a "dumb" opposition
+			bid_seq.append('pass')
+			 ???state is not changed, use the previous state
+		if (playerHand is own team)
+			**********core**************************************
+			find_next_bid(state, get_partners_previous_bid(bid_seq), playerHand) 
+			****************************************************
+			if found
+				determine next state, bid
+					To achieve this
+						parse and evaluate each rule in next_bid.rules list.
+						make list of allowable bids
+						decide on next bid(allowable_bids, next_bid_priority)
+						get next bid, next_state
+				bid_seq.append(bid)
+				if bid=='pass' && state!=='opener'
+					// only if opener passes and only happens once 
+					npasses = npasses - 1
+	 		else
+				// cannot work out what to bid, we are stuck!!!
+				bid = 'stuck'
+				bidding_continues = false
+				break out of loop
+		if bid=='pass' 
+			npasses++
+			if npasses == 3
+				bidding_continues = false
+				break
+		else
+			// not a pass so reset npasses
+			npasses = 0
+
+result = {}
+result.dealer = starting bid
+result.bid_seq = bid_seq
+result.deal = [dlr_cards, lho_cards, rsp_cards, rho_cards]
+result.classification = ????
+
+
+
+**********core********************************************
+	find rules_object for (state, bid_seq) for playerHand
+**********************************************************
+
+search for the correct rule to apply
+	find_next_bid(state, get_partners_previous_bid(bid_seq))
+		return object with properties
+			'next_bid_priority': [list in bid priority order]
+			'next_bid':
+				rules: [list of rules]
+				next_state: string
+				bid: string
+
+
+
+parse and evaluate each rule in next_bid.rules list.
+make list of allowable bids
+	
+decide on next bid(allowable_bids, next_bid_priority)
+return bid, next_state
+
+
+
+Who is dealer ?
+	Specify
+		or
+	Cycle
+		if previous_dealer = null (first time)|| previous_dealer = team2.B || specify dealer = team1.A
+			dealer = team1.A
+			responder = team1.B
+			lho = team2.A
+			rho = team2.B
+		if previous_dealer = team1.A  || specify dealer = team2.A
+			dealer = team2.A
+			responder = team2.B
+			lho = team1.A
+			rho = team1.B
+		if previous_dealer = team2.A  || specify dealer = team1.B
+			dealer = team1.B
+			responder = team1.A
+			lho = team2.B
+			rho = team2.A
+		if previous_dealer = team1.B  || specify dealer = team2.B
+			dealer = team2.B
+			responder = team2.A
+			lho = team1.A
+			rho = team1.B
+
+	
+
+
+
+
+
+
+
+
+
