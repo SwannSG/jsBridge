@@ -74,6 +74,7 @@ load(['deal.js']);
 
 
         // test distribution
+        var errorMsg = '';
         var distrOk = false;
         if (hand_sel.distr.include && combo_sel.distr.include) {
             // hand + combo distr
@@ -92,10 +93,12 @@ load(['deal.js']);
                 }
                 else {
                     // hand + combo distr sum not ok
+                    errorMsg = 'hand + combo distr sum not ok';
                 }
             }
             else {
                 // hand + combo distr values not ok
+                errorMsg = 'hand + combo distr values not ok';
             }
 
         }
@@ -111,6 +114,7 @@ load(['deal.js']);
             }
             else {
                 // hand distr values not ok
+                errorMsg = 'hand distr values not ok';
             }
         }
         else if (combo_sel.distr.include) {
@@ -124,10 +128,12 @@ load(['deal.js']);
                 }
                 else {
                     // combo distr sum not ok
+                    errorMsg = 'combo distr sum not ok';
                 }
             }
             else {
                 // combo distr values not ok
+                errorMsg = 'combo distr values not ok';
             }
         }
         else {
@@ -198,12 +204,15 @@ load(['deal.js']);
             var all_symbols = [];
             for (var i = 0; i < static_board.length; i++) {
                 var hand_symbols = static_board[i];
+
+
                 all_symbols = all_symbols.concat(split_symbols(hand_symbols));
             }
             // convert all symbols to integers
             var result = convert_all(all_symbols, SYM_TO_INT);
             if (check(result)) {
                 // result is the answer
+                return result;
             }
             else {
                 console.log('error');
@@ -230,31 +239,5 @@ load(['deal.js']);
         eval(eval_str);
     }
 })();
-
-
-
-hand_sel =  {points: {include: true, type  : 'hcp', count: 14 },
-    distr  : {include: true, spades: 5,     hearts:3, diamonds:3, clubs:2}};
-combo_sel = {points: {include: true, type  : 'hcp',  count: 9},
-    distr  : {include: true, spades: 8,     hearts:6, diamonds:6, clubs:6}};
-
-
-console.log(bridge_utils.selectorsOk(hand_sel, combo_sel));
-
-
-
-
-
-
-
-
-/*
-var static_board = [
-    'AC, TS',
-    'AH,9H'
-];
-
-var result = bridge_utils.convert(static_board);
-*/
 
 
