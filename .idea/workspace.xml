@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ecf18f09-35bc-40a1-9cf8-c3f2c0b8e8b9" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bid_test_suite.js" afterPath="$PROJECT_DIR$/bid_test_suite.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bridge_utils.js" afterPath="$PROJECT_DIR$/bridge_utils.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bridge_utils_test_suite.js" afterPath="$PROJECT_DIR$/bridge_utils_test_suite.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/deal.js" afterPath="$PROJECT_DIR$/deal.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/deal.md" afterPath="$PROJECT_DIR$/deal.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/deal_test_suite.js" afterPath="$PROJECT_DIR$/deal_test_suite.js" />
     </list>
     <ignored path="jsBridge.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,8 +33,8 @@
       <file leaf-file-name="deal_test_suite.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/deal_test_suite.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="4140">
-              <caret line="235" column="2" selection-start-line="235" selection-start-column="2" selection-end-line="235" selection-end-column="2" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="5612" max-vertical-offset="6555">
+              <caret line="402" column="0" selection-start-line="385" selection-start-column="0" selection-end-line="402" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -75,11 +76,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="deal.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="deal.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/deal.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6709265" vertical-offset="13410" max-vertical-offset="14160">
-              <caret line="922" column="0" selection-start-line="922" selection-start-column="0" selection-end-line="922" selection-end-column="0" />
+            <state vertical-scroll-proportion="-12.785714" vertical-offset="13562" max-vertical-offset="14160">
+              <caret line="928" column="0" selection-start-line="928" selection-start-column="0" selection-end-line="928" selection-end-column="0" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -90,18 +91,18 @@
       <file leaf-file-name="bridge_utils.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bridge_utils.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2042" max-vertical-offset="4515">
-              <caret line="153" column="48" selection-start-line="153" selection-start-column="48" selection-end-line="153" selection-end-column="48" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="4307" max-vertical-offset="6540">
+              <caret line="312" column="0" selection-start-line="312" selection-start-column="0" selection-end-line="312" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bridge_utils_test_suite.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="bridge_utils_test_suite.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bridge_utils_test_suite.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1819" max-vertical-offset="2640">
-              <caret line="127" column="12" selection-start-line="127" selection-start-column="12" selection-end-line="127" selection-end-column="12" />
+            <state vertical-scroll-proportion="0.85623" vertical-offset="2389" max-vertical-offset="3015">
+              <caret line="197" column="0" selection-start-line="197" selection-start-column="0" selection-end-line="197" selection-end-column="0" />
               <folding>
                 <element signature="e#0#44#0" expanded="false" />
               </folding>
@@ -137,11 +138,11 @@
         <option value="$PROJECT_DIR$/bidding_rules.js" />
         <option value="$PROJECT_DIR$/test_suite.js" />
         <option value="$PROJECT_DIR$/bid.js" />
-        <option value="$PROJECT_DIR$/deal_test_suite.js" />
-        <option value="$PROJECT_DIR$/bridge_utils.js" />
-        <option value="$PROJECT_DIR$/bridge_utils_test_suite.js" />
         <option value="$PROJECT_DIR$/bid_test_suite.js" />
         <option value="$PROJECT_DIR$/deal.js" />
+        <option value="$PROJECT_DIR$/deal_test_suite.js" />
+        <option value="$PROJECT_DIR$/bridge_utils_test_suite.js" />
+        <option value="$PROJECT_DIR$/bridge_utils.js" />
       </list>
     </option>
   </component>
@@ -301,7 +302,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24922839" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24922839" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32924962" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -362,7 +363,14 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="28" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/bridge_utils.js</url>
+          <line>16</line>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="36" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -671,36 +679,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/deal_test_suite.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3330" max-vertical-offset="4140">
-          <caret line="235" column="2" selection-start-line="235" selection-start-column="2" selection-end-line="235" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bid.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2014" max-vertical-offset="2640">
           <caret line="168" column="0" selection-start-line="168" selection-start-column="0" selection-end-line="168" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#44#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bridge_utils.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2042" max-vertical-offset="4515">
-          <caret line="153" column="48" selection-start-line="153" selection-start-column="48" selection-end-line="153" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bridge_utils_test_suite.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1819" max-vertical-offset="2640">
-          <caret line="127" column="12" selection-start-line="127" selection-start-column="12" selection-end-line="127" selection-end-column="12" />
           <folding>
             <element signature="e#0#44#0" expanded="false" />
           </folding>
@@ -719,10 +701,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/deal.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6709265" vertical-offset="13410" max-vertical-offset="14160">
-          <caret line="922" column="0" selection-start-line="922" selection-start-column="0" selection-end-line="922" selection-end-column="0" />
+        <state vertical-scroll-proportion="-12.785714" vertical-offset="13562" max-vertical-offset="14160">
+          <caret line="928" column="0" selection-start-line="928" selection-start-column="0" selection-end-line="928" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/deal_test_suite.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="5612" max-vertical-offset="6555">
+          <caret line="402" column="0" selection-start-line="385" selection-start-column="0" selection-end-line="402" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bridge_utils.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="4307" max-vertical-offset="6540">
+          <caret line="312" column="0" selection-start-line="312" selection-start-column="0" selection-end-line="312" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bridge_utils_test_suite.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.85623" vertical-offset="2389" max-vertical-offset="3015">
+          <caret line="197" column="0" selection-start-line="197" selection-start-column="0" selection-end-line="197" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#44#0" expanded="false" />
           </folding>
         </state>
       </provider>

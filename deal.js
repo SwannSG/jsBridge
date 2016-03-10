@@ -257,7 +257,7 @@ load(['../jspy/py_lite.js']);
             combo = new Combine(hand1, hand2);
             if (combo_sel.points.include && combo_sel.distr.include) {
                 // Combo selection based on points and distribution
-                console.log('test_combo');
+                //console.log('test_combo');
                 if (combo.hasPoints(combo_sel.points.type, combo_sel.points.count) &&
                     combo.hasDistr(combo_sel.distr.spades, combo_sel.distr.hearts, combo_sel.distr.diamonds, combo_sel.distr.clubs)) {
                     return true;
@@ -727,8 +727,8 @@ load(['../jspy/py_lite.js']);
             var combinations = [[find_hand_result.index, other_indexes[0]],
                 [find_hand_result.index, other_indexes[1]],
                 [find_hand_result.index, other_indexes[2]]];
-            console.log('combinations');
-            console.log(combinations);
+            //console.log('combinations');
+            //console.log(combinations);
             for (var j = 0; j < combinations.length; j++) {
                 if (test_combo(find_hand_result.hands[combinations[j][0]], find_hand_result.hands[combinations[j][1]], combo_sel)) {
                     combo_found = true;
@@ -812,7 +812,7 @@ load(['../jspy/py_lite.js']);
          *
          * */
         var make_hand = function (hand_sel, combo_sel) {
-            console.log('make_hand');
+            //console.log('make_hand');
             if ((hand_sel.points.include === false && hand_sel.distr.include === false) &&
                 (combo_sel.points.include === false && combo_sel.distr.include === false)) {
                 // no hand or combo selection criteria
@@ -864,17 +864,17 @@ load(['../jspy/py_lite.js']);
             else if ((hand_sel.points.include === true || hand_sel.distr.include === true) &&
                 (combo_sel.points.include === true || combo_sel.distr.include === true)) {
                 // hand and combo selection criteria
-                console.log('hand and combo selection criteria');
+                //console.log('hand and combo selection criteria');
                 // need to do multiple iterations
                 var iterations = 0;
                 var k = 0;
                 while (k < MAX_ITERATIONS) {
-                    console.log(k);
+                    //console.log(k);
                     var find_hand_result = find_hand(hand_sel, combo_sel);
-                    console.log('aaa');
+                    //console.log('aaa');
                     iterations = iterations + find_hand_result.iterations;
                     if (find_hand_result.hand_found) {
-                        console.log('hand_found: ' + k);
+                        //console.log('hand_found: ' + k);
                         var combo_result = find_combo_hand_selected(find_hand_result, combo_sel);
                         if (combo_result.combo_found) {
                             return {

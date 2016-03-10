@@ -40,16 +40,19 @@ board.team1.A and board.team1.B always contains the selected partnership based o
 
 **hand_sel** is an object literal. It is used as a hand selector.  
 
-|Property Name				| Value					| Meaning (applies to selected hand)										  |
+|Property Name				| Value					| Meaning (applies to selected hand)			  |
 |:-------------------------:|:---------------------:|:-----------------------------------------------:|
 |hand_sel.points.include	| true/false			| Select hand based on hand points if true		  |			
 |hand_sel.points.type		| 'hcp' or 'lp' or 'sp'	| High card points or Long points or Short points |
-|hand_sel.points.count 		| numeric				| Desired point count							  |		
+|hand_sel.points.count 		| numeric				| Desired point count, exact					  |
+|							| 6-9					| lower bound to upper bound, inclusive			  |
+|							| +10					| greater than or equal to a count				  |	
 |hand_sel.distr.include		| true/false			| Select hand based on hand distribution if true  |
-|hand_sel.distr.spades		| numeric				| Desired number of spades						  |	
-|hand_sel.distr.hearts		| numeric				| Desired number of hearts						  |	
-|hand_sel.distr.diamonds	| numeric				| Desired number of diamonds					  |	
-|hand_sel.distr.clubs		| numeric				| Desired number of clubs						  |	
+|hand_sel.distr.spades		| numeric or '*'		| Desired number of spades						  |	
+|hand_sel.distr.hearts		| numeric or '*'		| Desired number of hearts						  |	
+|hand_sel.distr.diamonds	| numeric or '*'		| Desired number of diamonds					  |	
+|hand_sel.distr.clubs		| numeric or '*'		| Desired number of clubs						  |
+|							|						| '*' means wildcard, any number				  |	
 
 
 **combo_sel** is an object literal. It is used as a partnership selector.

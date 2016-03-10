@@ -4,6 +4,7 @@
 // testing suite
 
 load(['deal.js']);
+load(['bridge_utils.js']);
 
 
 function test_results(test_name, r, hand_sel, combo_sel) {
@@ -112,6 +113,11 @@ function show_test_sel(hand_sel, combo_sel) {
 
 
 function show_test_results(test_name, hand_sel, combo_sel) {
+    if (!bridge_utils.selectorsOk(hand_sel, combo_sel)) {
+        // hand_sel, combo_sel not ok
+        console.log(test_name + ' error in hand_sel, combo_sel');
+        return;
+    }
     h = new deal.make_hand(hand_sel, combo_sel)
     var t = test_results(test_name, h, hand_sel, combo_sel);
     console.log('*********************************************************************\n');
@@ -241,6 +247,161 @@ hand_sel =  {points: {include: true, type  : 'hcp', count: 14 },
 combo_sel = {points: {include: true, type  : 'hcp',  count: 9},
     distr  : {include: true, spades: 4,     hearts:3, diamonds:2, clubs:4}};
 show_test_results('test 14', hand_sel, combo_sel);
+
+
+hand_sel =  {points: {include: false, type  : 'hcp', count: 14 },
+    distr  : {include: false, spades: 5,     hearts:3, diamonds:3, clubs:2}};
+combo_sel = {points: {include: false, type  : 'hcp',  count: 9},
+    distr  : {include: false, spades: 8,     hearts:6, diamonds:6, clubs:6}};
+show_test_results('test 15', hand_sel, combo_sel);
+
+
+hand_sel =  {points: {include: false, type  : 'hcp', count: 14 },
+    distr  : {include: true, spades: 5,     hearts:3, diamonds:3, clubs:2}};
+combo_sel = {points: {include: false, type  : 'hcp',  count: 9},
+    distr  : {include: false, spades: 8,     hearts:6, diamonds:6, clubs:6}};
+show_test_results('test 16', hand_sel, combo_sel);
+
+
+hand_sel =  {points: {include: false, type  : 'hcp', count: 14 },
+    distr  : {include: true, spades: 5,     hearts:4, diamonds:3, clubs:2}};
+combo_sel = {points: {include: false, type  : 'hcp',  count: 9},
+    distr  : {include: false, spades: 8,     hearts:6, diamonds:6, clubs:6}};
+show_test_results('test 17', hand_sel, combo_sel);
+
+
+hand_sel =  {points: {include: false, type  : 'hcp', count: 14 },
+    distr  : {include: true, spades: 5,     hearts:2, diamonds:3, clubs:2}};
+combo_sel = {points: {include: false, type  : 'hcp',  count: 9},
+    distr  : {include: false, spades: 8,     hearts:6, diamonds:6, clubs:6}};
+show_test_results('test 18', hand_sel, combo_sel);
+
+
+hand_sel =  {points: {include: false, type  : 'hcp', count: 14 },
+    distr  : {include: true, spades: 5,     hearts:2, diamonds:'*', clubs:'*'}};
+combo_sel = {points: {include: false, type  : 'hcp',  count: 9},
+    distr  : {include: false, spades: 8,     hearts:6, diamonds:6, clubs:6}};
+show_test_results('test 19', hand_sel, combo_sel);
+
+
+hand_sel =  {points: {include: false, type  : 'hcp', count: 14 },
+    distr  : {include: true, spades: '*',     hearts:'*', diamonds:'*', clubs:'*'}};
+combo_sel = {points: {include: false, type  : 'hcp',  count: 9},
+    distr  : {include: false, spades: 8,     hearts:6, diamonds:6, clubs:6}};
+show_test_results('test 20', hand_sel, combo_sel);
+
+
+hand_sel =  {points: {include: false, type  : 'hcp', count: 14 },
+    distr  : {include: true, spades: 3,     hearts:4, diamonds:14, clubs:2}};
+combo_sel = {points: {include: false, type  : 'hcp',  count: 9},
+    distr  : {include: false, spades: 8,     hearts:6, diamonds:6, clubs:6}};
+show_test_results('test 21', hand_sel, combo_sel);
+
+
+hand_sel =  {points: {include: false, type  : 'hcp', count: 14 },
+    distr  : {include: true, spades: 3,     hearts:4, diamonds:'$', clubs:2}};
+combo_sel = {points: {include: false, type  : 'hcp',  count: 9},
+    distr  : {include: false, spades: 8,     hearts:6, diamonds:6, clubs:6}};
+show_test_results('test 22', hand_sel, combo_sel);
+
+hand_sel =  {points: {include: false, type  : 'hcp', count: 14 },
+    distr  : {include: true, spades: 5,     hearts:3, diamonds:3, clubs:2}};
+combo_sel = {points: {include: false, type  : 'hcp',  count: 9},
+    distr  : {include: true, spades: 8,     hearts:6, diamonds:6, clubs:6}};
+show_test_results('test 23', hand_sel, combo_sel);
+
+
+hand_sel =  {points: {include: false, type  : 'hcp', count: 14 },
+    distr  : {include: true, spades: 5,     hearts:3, diamonds:3, clubs:2}};
+combo_sel = {points: {include: false, type  : 'hcp',  count: 9},
+    distr  : {include: true, spades: 8,     hearts:'*', diamonds:6, clubs:6}};
+show_test_results('test 24', hand_sel, combo_sel);
+
+
+hand_sel =  {points: {include: false, type  : 'hcp', count: 14 },
+    distr  : {include: true, spades: 5,     hearts:3, diamonds:3, clubs:2}};
+combo_sel = {points: {include: false, type  : 'hcp',  count: 9},
+    distr  : {include: true, spades: 10,     hearts:'*', diamonds:8, clubs:10}};
+show_test_results('test 25', hand_sel, combo_sel);
+
+
+// test points
+hand_sel =  {points: {include: true, type  : 'hcp', count: 14 },
+    distr  : {include: false, spades: 5,     hearts:3, diamonds:3, clubs:2}};
+combo_sel = {points: {include: false, type  : 'hcp',  count: 9},
+    distr  : {include: false, spades: 10,     hearts:'*', diamonds:8, clubs:10}};
+show_test_results('test 26', hand_sel, combo_sel);
+
+
+hand_sel =  {points: {include: true, type  : 'hcp', count: 114 },
+    distr  : {include: false, spades: 5,     hearts:3, diamonds:3, clubs:2}};
+combo_sel = {points: {include: false, type  : 'hcp',  count: 9},
+    distr  : {include: false, spades: 10,     hearts:'*', diamonds:8, clubs:10}};
+show_test_results('test 27', hand_sel, combo_sel);
+
+
+hand_sel =  {points: {include: false, type  : 'hcp', count: 14 },
+    distr  : {include: false, spades: 5,     hearts:3, diamonds:3, clubs:2}};
+combo_sel = {points: {include: true, type  : 'hcp',  count: 9},
+    distr  : {include: false, spades: 10,     hearts:'*', diamonds:8, clubs:10}};
+show_test_results('test 28', hand_sel, combo_sel);
+
+
+
+hand_sel =  {points: {include: false, type  : 'hcp', count: 14 },
+    distr  : {include: false, spades: 5,     hearts:3, diamonds:3, clubs:2}};
+combo_sel = {points: {include: true, type  : 'hcp',  count: 69},
+    distr  : {include: false, spades: 10,     hearts:'*', diamonds:8, clubs:10}};
+show_test_results('test 29', hand_sel, combo_sel);
+
+
+hand_sel =  {points: {include: true, type  : 'hcp', count: 14 },
+    distr  : {include: false, spades: 5,     hearts:3, diamonds:3, clubs:2}};
+combo_sel = {points: {include: true, type  : 'hcp',  count: 9},
+    distr  : {include: false, spades: 10,     hearts:'*', diamonds:8, clubs:10}};
+show_test_results('test 30', hand_sel, combo_sel);
+
+
+hand_sel =  {points: {include: true, type  : 'hcp', count: 14 },
+    distr  : {include: false, spades: 5,     hearts:3, diamonds:3, clubs:2}};
+combo_sel = {points: {include: true, type  : 'hcp',  count: 20},
+    distr  : {include: false, spades: 10,     hearts:'*', diamonds:8, clubs:10}};
+show_test_results('test 31', hand_sel, combo_sel);
+
+
+hand_sel =  {points: {include: true, type  : 'hcp', count: 14 },
+    distr  : {include: false, spades: 5,     hearts:3, diamonds:3, clubs:2}};
+combo_sel = {points: {include: true, type  : 'hcp',  count: 9},
+    distr  : {include: true, spades: 10,     hearts:'*', diamonds:8, clubs:10}};
+show_test_results('test 32', hand_sel, combo_sel);
+
+
+hand_sel =  {points: {include: true, type  : 'hcp', count: 14 },
+    distr  : {include: false, spades: 5,     hearts:3, diamonds:3, clubs:2}};
+combo_sel = {points: {include: true, type  : 'hcp',  count:21},
+    distr  : {include: true, spades: 8,     hearts:6, diamonds:8, clubs:4}};
+show_test_results('test 33', hand_sel, combo_sel);
+
+
+hand_sel =  {points: {include: true, type  : 'hcp', count: '6-9' },
+    distr  : {include: false, spades: 5,     hearts:3, diamonds:3, clubs:2}};
+combo_sel = {points: {include: false, type  : 'hcp',  count:21},
+    distr  : {include: false, spades: 8,     hearts:6, diamonds:8, clubs:4}};
+show_test_results('test 33', hand_sel, combo_sel);
+
+hand_sel =  {points: {include: true, type  : 'hcp', count: ' 6 - 9 ' },
+    distr  : {include: false, spades: 5,     hearts:3, diamonds:3, clubs:2}};
+combo_sel = {points: {include: false, type  : 'hcp',  count:21},
+    distr  : {include: false, spades: 8,     hearts:6, diamonds:8, clubs:4}};
+show_test_results('test 33', hand_sel, combo_sel);
+
+hand_sel =  {points: {include: true, type  : 'hcp', count: '+6' },
+    distr  : {include: false, spades: 5,     hearts:3, diamonds:3, clubs:2}};
+combo_sel = {points: {include: false, type  : 'hcp',  count:21},
+    distr  : {include: false, spades: 8,     hearts:6, diamonds:8, clubs:4}};
+show_test_results('test 33', hand_sel, combo_sel);
+
+
 
 
 

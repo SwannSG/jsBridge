@@ -14,7 +14,7 @@ load(['deal.js']);
 
     var main = function() {
 
-        var selectorsOk = function(hand_sel, combo_sel) {
+        var areTestSelectorsOk = function(hand_sel, combo_sel)     {
 
             var distr_value_ok = function(distr_value) {
                 // distr_value = * or 1-13
@@ -191,9 +191,144 @@ load(['deal.js']);
         else {
             return false;
         }
-    };
+        };
 
 
+        var re = {}
+        // '6-9' string
+        re.lb_ub = /^[\s]*([0-9]{1,2})[\s]*-[\s]*([0-9]{1,2})/;
+        // '+12' string
+        re.plus = /^[\s]*\+[\s]*([0-9]{1,2})/;
+
+
+        var make_points_array = function(points_count) {
+            console.log(points_count);
+            var arr = [];
+            if (typeof(points_count)==='string') {
+                // count is a string
+                // +10      translates to 10 to 40
+                // 10-15    translates to 10 to 15
+                var r = re.lb_ub.exec(points_count);
+                if (r!==null) {
+                    // string is type 12-15
+                    arr.push(Number(r[1]));
+                    arr.push(Number(r[2]));
+                    // do something else
+                }
+                else {
+                    var r = re.plus.exec(points_count);
+                    if (r!==null) {
+                        // +12 implies upper limit of 40
+                        arr.push(Number(r[1]));
+                        arr.push(40);
+                    }
+                    else {
+                        return false;
+                    }
+                }
+            }
+            else {
+                // count is numeric
+                arr.push(points_count);
+            }
+            return arr;
+        }
+
+
+        var selectorsOk = function(hand_sel, combo_sel) {
+
+            var result;
+            var combo_points_arr;
+            var hand_points_arr;
+
+            // build combo_points_arr and hand_points_arr
+            if (hand_sel.points.include) {
+                // make hand points array
+                hand_points_arr = make_points_array(hand_sel.points.count);
+            }
+            if (combo_sel.points.include) {
+                // make hand points array
+                combo_points_arr = make_points_array(combo_sel.points.count);
+            }
+
+            // test combinations of hand and combo points
+            if (hand_sel.points.include && combo_sel.points.include) {
+                // hand and combo points
+                if (hand_points_arr.length===1 && combo_points_arr.length===1) {
+                    hand_sel.points.count = hand_points_arr[0];
+                    combo_sel.points.count = combo_points_arr[0];
+                    result = areTestSelectorsOk(hand_sel, combo_sel);
+                }
+                else if (hand_points_arr.length===2 && combo_points_arr.length===1) {
+                    hand_sel.points.count = hand_points_arr[0];
+                    combo_sel.points.count = combo_points_arr[0];
+                    result = areTestSelectorsOk(hand_sel, combo_sel);
+                    if (result) {
+                        hand_sel.points.count = hand_points_arr[1];
+                        combo_sel.points.count = combo_points_arr[0];
+                        result = areTestSelectorsOk(hand_sel, combo_sel);
+                    }
+                }
+                else if (hand_points_arr.length===2 && combo_points_arr.length===2) {
+                    hand_sel.points.count = hand_points_arr[0];
+                    combo_sel.points.count = combo_points_arr[0];
+                    result = areTestSelectorsOk(hand_sel, combo_sel);
+                    if (result) {
+                        hand_sel.points.count = hand_points_arr[0];
+                        combo_sel.points.count = combo_points_arr[1];
+                        result = areTestSelectorsOk(hand_sel, combo_sel);
+                        if (result) {
+                            hand_sel.points.count = hand_points_arr[1];
+                            combo_sel.points.count = combo_points_arr[0];
+                            result = areTestSelectorsOk(hand_sel, combo_sel);
+                            if (result) {
+                                hand_sel.points.count = hand_points_arr[1];
+                                combo_sel.points.count = combo_points_arr[1];
+                                result = areTestSelectorsOk(hand_sel, combo_sel);
+                            }
+                        }
+                    }
+                }
+                else if (hand_points_arr.length===1 && combo_points_arr.length===2) {
+                    hand_sel.points.count = hand_points_arr[0];
+                    combo_sel.points.count = combo_points_arr[0];
+                    result = areTestSelectorsOk(hand_sel, combo_sel);
+                    if (result) {
+                        hand_sel.points.count = hand_points_arr[0];
+                        combo_sel.points.count = combo_points_arr[1];
+                        result = areTestSelectorsOk(hand_sel, combo_sel);
+                    }
+                }
+            }
+            else if (hand_sel.points.include) {
+                // hand points only selection
+                result = true;
+                for (var i=0;i<hand_points_arr.length;i++) {
+                    hand_sel.points.count = hand_points_arr[i];
+                    if (!areTestSelectorsOk(hand_sel, combo_sel)) {
+                        result = false;
+                        break;
+                    }
+                }
+            }
+            else if (combo_sel.points.include) {
+                // combo points only selection
+                result = true;
+                for (var i=0;i<combo_points_arr.length;i++) {
+                    combo_sel.points.count = combo_points_arr[i];
+                    if (!areTestSelectorsOk(hand_sel, combo_sel)) {
+                        result = false;
+                        break;
+                    }
+                }
+            }
+            else {
+                // no points selection
+                result = areTestSelectorsOk(hand_sel, combo_sel)
+            }
+            return result;
+
+        };
 
 
         var make_SYM_TO_INT = function (x) {
