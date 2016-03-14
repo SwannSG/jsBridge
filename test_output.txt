@@ -1,27 +1,42 @@
 
 Opener (none)
-priority 	2nt	1s	1h	1nt	1d	1c
- nb responder 	hp0-12  
- 1c responder 	lp13-22  	♣≥2 	♢<4 	♡≤4 	♠≤4
- 1d responder 	lp13-22  	♢≥4 	♡≤4 	♠≤4
- 1h responder 	lp13-22  	♡≥5 	♠≤4
- 1s responder 	lp13-22  	♠≥5
- 1nt responder 	hp15-17  	♡≤4 	♠≤4 	dt≤1
- 2c responder 	hp23-40 
- 2d responder 	hp6-11   	♢=6
- 2h responder 	hp6-11   	♡=6
- 2s responder 	hp6-11   	♠=6
- 2nt responder 	hp20-21  	♡≤4 	♠≤4 	dt≤1
+priority 	2c	2nt	2s	2h	1nt	2s	2h	2d	1d	1c	nb
+ nb responder 	hp0-12  										
+ 1c responder 	hp13-22  	♣≥2 	♢<4 	♡≤4 	♠≤4						Approach club
+ 1d responder 	hp13-22  	♢≥4 	♡≤4 	♠≤4							No major, at least 4 clubs
+ 1h responder 	hp13-22  	♡≥5 	♠≤4								Show major
+ 1s responder 	hp13-22  	♠≥5									Show major
+ 1nt responder 	hp15-17  	♡≤4 	♠≤4 	dt≤1							Limit bid, tight point count, no 5-card major
+ 2c responder 	hp23-40 										Very powerful hand, any distribution
+ 2d responder 	hp6-11   	♢=6									Preemptive weak
+ 2h responder 	hp6-11   	♡=6									Preemptive weak
+ 2s responder 	hp6-11   	♠=6									Preemptive weak
+ 2nt responder 	hp20-21  	♡≤4 	♠≤4 	dt≤1							Limit bid, tight point count, no 5-card major
 
 Responder (1c)
- nb p
- 1d p 	♢≥4
+ nb p											
+ 1d p 	♢≥4										
+ 1h p 	♡≥4										
+ 1s p 	♠≥4										
+ 1nt p 	♠<4 	♡<4 	♢<4								
+ 2c p 	♣≥4										
+ 2d p 	♢≥4										
+ 2h p 	♢≥4										
+ 2s p 	♢≥4										
+priority 	2s	2h	2d	2c	1s	1h	1nt	1d
 
 Responder (1d)
- nb p
- 1h p 	♡≥4
+ nb p											
+ 1h p 	♡≥4										
+ 1s p 	♠≥4										
+ 1nt p 	♠<4 	♡<4									
+ 2c p 	♣≥4										
+ 2d p 	♢≥4										
+ 2h p 	♢≥4										
+ 2s p 	♢≥4										
+priority 	2s	2h	2d	2c	1s	1h	1nt
 
-Responder (1nt)
- next_stat e
- nb p
- 1d p 	♢≥4
+Responder (1h)
+ nb p											
+ 1s p 	♠=4										
+ 1nt p 	♠≤3 	♡≤3									

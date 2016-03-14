@@ -1,17 +1,18 @@
 state: opener
 prev_bid: none
-nb	p(hp,0,12)
-1c	p(lp,13,22)	s(c,gte,2)	s(d,lt,4) s(h,lte,4) s(s,lte,4)	
-1d	p(lp,13,22)	s(d,gte,4)	s(h,lte,4) s(s,lte,4)
-1h	p(lp,13,22)	s(h,gte,5)	s(s,lte,4)
-1s	p(lp,13,22)	s(s,gte,5)
-1nt	p(hp,15,17) s(h,lte,4) s(s,lte,4) dt(lte,1)
-2c	p(hp,23,40)
-2d	p(hp,6,11)	s(d,eq,6)
-2h	p(hp,6,11)	s(h,eq,6)
-2s	p(hp,6,11)	s(s,eq,6)
-2nt	p(hp,20,21) s(h,lte,4) s(s,lte,4) dt(lte,1)
-priority: 2nt 1s 1h 1nt 1d 1c a b c d 
+priority: 2c 2nt 2s 2h 1nt 2s 2h 2d 1d 1c nb
+nb	responder	p(hp,0,12)
+1c	responder	p(hp,13,22)	s(c,gte,2)	s(d,lt,4) s(h,lte,4) s(s,lte,4)			@Approach club
+1d	responder	p(hp,13,22)	s(d,gte,4)	s(h,lte,4) s(s,lte,4)					@No major, at least 4 clubs
+1h	responder	p(hp,13,22)	s(h,gte,5)	s(s,lte,4)								@Show major
+1s	responder	p(hp,13,22)	s(s,gte,5)											@Show major
+1nt	responder	p(hp,15,17) s(h,lte,4) s(s,lte,4) dt(lte,1)						@Limit bid, tight point count, no 5-card major
+2c	responder	p(hp,23,40)														@Very powerful hand, any distribution
+2d	responder	p(hp,6,11)	s(d,eq,6)											@Preemptive weak
+2h	responder	p(hp,6,11)	s(h,eq,6)											@Preemptive weak
+2s	responder	p(hp,6,11)	s(s,eq,6)											@Preemptive weak
+2nt	responder	p(hp,20,21) s(h,lte,4) s(s,lte,4) dt(lte,1)						@Limit bid, tight point count, no 5-card major
+
 
 state	: responder
 prev_bid: 1c
