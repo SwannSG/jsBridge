@@ -46,6 +46,10 @@ def format_rule(name, p1, p2, p3):
     if name == 'dt':
         return '\tdt%s%s' % (condition(p1).strip(), p2.strip())
 
+    if name == 'h':
+        return '\thon%s%s%s' % (suit(p1).strip(), condition(p2).strip(), p3.strip())
+
+
 def js_rule(name, p1, p2, p3):
     # js format
     if name == 'p':
@@ -63,6 +67,11 @@ def js_rule(name, p1, p2, p3):
         # dt(lte,1)   
         p1 = "'%s'" % p1
         return 'hasDoubletons(%s, %s)' % (p1, p2)
+    if name == 'h':
+        # h(d,gte,1)
+        p1 = "'%s'" % p1
+        p2 = "'%s'" % p2
+        return 'hasHonoursLength(%s, %s, %s)' % (p1, p2, p3)
 
 def js_priority(t):
     # ('priority', '2nt', '1s', '1h', '1nt', '1d', '1c')
@@ -79,9 +88,12 @@ re_state = re.compile(ur'^\s*(state)\s*:\s*(\w+)')
 re_prev_bid = re.compile(ur'^\s*(prev_bid)\s*:\s*(\w+)')
 re_priority = re.compile(ur'^\s*(priority)\s*:\s*(\w{0,3})\s*(\w{0,3})\s*(\w{0,3})\s*(\w{0,3})\s*(\w{0,3})\s*(\w{0,3})\s*(\w{0,3})\s*(\w{0,3})\s*(\w{0,3})\s*(\w{0,3})\s*(\w{0,3})')
 re_rule = re.compile(ur'^\s*(\w+)\s*([a-zA-z0-9_\-]+)\s*([a-z0-9,()]*)\s*([a-z0-9,()]*)\s*([a-z0-9,()]*)\s*([a-z0-9,()]*)\s*([a-z0-9,()]*)\s*([a-z0-9,()]*)\s*([a-z0-9,()]*)\s*([a-z0-9,()]*)\s*([a-z0-9,()]*)')
+
 re_points = re.compile(ur'^\s*(p)\(\s*([a-z]{2,3})\s*,\s*(\d{1,2})\s*,\s*(\d{1,2})')
 re_suit = re.compile(ur'^\s*(s)\(\s*([s|h|d|c])\s*,\s*([a-z]{2,3})\s*,\s*(\d{1,2})')
 re_doubletons = re.compile(ur'^\s*(dt)\s*\(\s*([a-z]{2,3})\s*,\s*(\d)')
+re_honours = re.compile(ur'^\s*(h)\(\s*([s|h|d|c])\s*,\s*([a-z]{2,3})\s*,\s*(\d{1,2})')
+
 re_text = re.compile(ur"[\sA-Za-z0-9,()'_\-]*@([A-Za-z0-9, \-]*)")
 
 
@@ -116,7 +128,7 @@ for line in fp:
         r = r.groups()
         prev_bid = r[1]
         o.append('')
-        o.append('%s (%s)' % (state.capitalize(), prev_bid))
+        o.append('%s (%s)' % (state, prev_bid))
         # rules:
         try:
             js_list.append(js_state_obj)
@@ -203,6 +215,19 @@ for line in fp:
                     js_next_bid['rules'].append(js_rule_str)
                     print '\t\tdoubletom'
                     continue
+                m = re_honours.match(each)
+                if m is not None:
+                    # honours    h(d,gte,2)
+                    m = m.groups()
+                    formatted_rule = format_rule(m[0], m[1], m[2], m[3])
+                    rule_list.append(formatted_rule)
+                    js_rule_str = js_rule(m[0], m[1], m[2], m[3])
+                    js_next_bid['rules'].append(js_rule_str)
+                    print '\t\thonours'
+                    continue
+
+
+
 
         js_state_obj['availableBids'].append(js_next_bid)
 

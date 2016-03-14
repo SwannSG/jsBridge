@@ -1,49 +1,30 @@
-state: opener
+state: opn0
 prev_bid: none
 priority: 2c 2nt 2s 2h 1nt 2s 2h 2d 1d 1c nb
-nb	responder	p(hp,0,12)
-1c	responder	p(hp,13,22)	s(c,gte,2)	s(d,lt,4) s(h,lte,4) s(s,lte,4)			@Approach club
-1d	responder	p(hp,13,22)	s(d,gte,4)	s(h,lte,4) s(s,lte,4)					@No major, at least diamonds clubs
-1h	responder	p(hp,13,22)	s(h,gte,5)	s(s,lte,4)								@Show major
-1s	responder	p(hp,13,22)	s(s,gte,5)											@Show major
-1nt	responder	p(hp,15,17) s(h,lte,4) s(s,lte,4) dt(lte,1)						@Limit bid, tight point count, no 5-card major
-2c	responder	p(hp,23,40)														@Very powerful hand, any distribution
-2d	responder	p(hp,6,11)	s(d,eq,6)											@Preemptive weak
-2h	responder	p(hp,6,11)	s(h,eq,6)											@Preemptive weak
-2s	responder	p(hp,6,11)	s(s,eq,6)											@Preemptive weak
-2nt	responder	p(hp,20,21) s(h,lte,4) s(s,lte,4) dt(lte,1)						@Limit bid, tight point count, no 5-card major
+nb	rsp0	p(hp,0,12)
+1c	rsp0	p(hp,13,22)	s(c,gte,2)	s(d,lt,4)	s(h,lte,4) s(s,lte,4)		@Approach club
+1d	rsp0	p(hp,13,22)	s(d,gte,4)	s(h,lte,4)	s(s,lte,4)					@No major, at least diamonds clubs
+1h	rsp0	p(hp,13,22)	s(h,gte,5)	s(s,lte,4)								@Show major
+1s	rsp0	p(hp,13,22)	s(s,gte,5)											@Show major
+1nt	rsp0	p(hp,15,17) s(h,lte,4)	s(s,lte,4)	dt(lte,1)					@Limit bid, tight point count, no 5-card major
+2c	rsp0	p(hp,23,40)														@Very powerful hand, any distribution
+2d	rsp0	p(hp,6,11)	s(d,eq,6)	h(d,gte,2)								@Preemptive weak
+2h	rsp0	p(hp,6,11)	s(h,eq,6)											@Preemptive weak
+2s	rsp0	p(hp,6,11)	s(s,eq,6)											@Preemptive weak
+2nt	rsp0	p(hp,20,21) s(h,lte,4) s(s,lte,4) dt(lte,1)						@Limit bid, tight point count, no 5-card major
 
 
-state	: responder
+state	: rsp0
 prev_bid: 1c
 priority: 2s 2h 2d 2c 1s 1h 1nt 1d nb
-nb	opener-1-rebid	p(lp,0,5)													@Too weak to respond
-1d	opener1stRebid	p(lp,6,11)	s(d,gte,4)										@Limit bid, at least 4 of bid suit
-1h	opener1stRebid	p(lp,6,11)	s(h,gte,4)										@Limit bid, at least 4 of bid suit
-1s	opener1stRebid	p(lp,6,11)	s(s,gte,4)										@Limit bid, at least 4 of bid suit
-1nt opener1stRebid	p(hp,6,11)	s(s,lt,4)	s(h,lt,4)	s(d,lt,4)				@Limit bid, no major 	
-2c	opener1stRebid	p(lp,12,40)	s(c,gte,4)										@Unlimited bid, at least 4 of bid suit				
-2d	opener1stRebid	p(lp,12,40)	s(d,gte,4)										@Unlimited bid, at least 4 of bid suit
-2h	opener1stRebid	p(lp,12,40)	s(d,gte,4)										@Unlimited bid, at least 4 of bid suit
-2s	opener1stRebid	p(lp,12,40)	s(d,gte,4)										@Unlimited bid, at least 4 of bid suit
-
-state	: responder
-prev_bid: 1d
-nb	p(lp,0,5)
-1h	p(lp,6,9)	s(h,gte,4)
-1s	p(lp,6,9)	s(s,gte,4)
-1nt p(hp,6,9)	s(s,lt,4)	s(h,lt,4) 	
-2c	p(lp,10,40)	s(c,gte,4)
-2d	p(lp,10,40)	s(d,gte,4)
-2h	p(lp,10,40)	s(d,gte,4)
-2s	p(lp,10,40)	s(d,gte,4)
-priority: 2s 2h 2d 2c 1s 1h 1nt
-
-state	: responder
-prev_bid: 1h
-nb	p(lp,0,5)
-1s	p(lp,6,9)	s(s,eq,4)
-1nt p(hp,6,9)	s(s,lte,3) s(h,lte,3)
-
+nb	opn1	p(lp,0,5)														@Too weak to respond
+1d	opn1	p(lp,6,11)	s(d,gte,4)											@Limit bid, at least 4 of bid suit
+1h	opn1	p(lp,6,11)	s(h,gte,4)											@Limit bid, at least 4 of bid suit
+1s	opn1	p(lp,6,11)	s(s,gte,4)											@Limit bid, at least 4 of bid suit
+1nt opn1	p(hp,6,11)	s(s,lt,4)	s(h,lt,4)	s(d,lt,4)					@Limit bid, no major 	
+2c	opn1	p(lp,12,40)	s(c,gte,4)											@Unlimited bid, at least 4 of bid suit				
+2d	opn1	p(lp,12,40)	s(d,gte,4)											@Unlimited bid, at least 4 of bid suit
+2h	opn1	p(lp,12,40)	s(d,gte,4)											@Unlimited bid, at least 4 of bid suit
+2s	opn1	p(lp,12,40)	s(d,gte,4)											@Unlimited bid, at least 4 of bid suit
 
 

@@ -30,12 +30,12 @@ There can be multiple Bid and Rules lines attached to each State. At the end of 
 
 Valid rules are:
 
-| General                 | Example   | Meaning                                    |
-|:------------------------|:----------|:-------------------------------------------|
-| p(points_type, lb, ub)  | p(hp,0,12)| high card points between 0 and 12 inclusive|
-| s(suit,condition,count) | s(c,gte,2)| more than 2 clubs						   |
-| dt(condition,1)		  | dt(lte,1) | less than or equal to 1 doubleton		   |		
-
+| General                 | Example   | Meaning                                    | Display |
+|:------------------------|:----------|:-------------------------------------------|:--------|
+| p(points_type, lb, ub)  | p(hp,0,12)| high card points between 0 and 12 inclusive|hp0-12	 |	
+| s(suit,condition,count) | s(c,gte,2)| more than 2 clubs						   |♣≥2		 |
+| dt(condition,1)		  | dt(lte,1) | less than or equal to 1 doubleton		   |dt≤1	 | 		
+| h(suit,condition,count) | h(d,gte,2)|	more than 2 honors in diamonds			   |♢hon≥2	 |	
 
 
 Options for *points_type* are:
@@ -117,6 +117,17 @@ Ns, spades
 Example, 1nt or 1h.
 
 ###State
+
+opn0, opener
+rsp0, responder
+
+opn1, opener 1st rebid
+rsp1, responder 1st rebid
+
+opn2, opener 2nd rebid
+rsp2, responder 2nd rebid
+
+
 
 
 
