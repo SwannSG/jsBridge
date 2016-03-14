@@ -4,14 +4,11 @@
 
 Output one is a text output that summarises the bidding system.
 
-Output two is a dictionary object that can be used as Javascript object to simulate a database.
+Output two is a list object that can be used as Javascript object to simulate a database.
 
 ###Input Text File
 
 By default the name of the file is *bidding_space.txt*
-
-
-
 
 # Format of bidding_space.txt
 
@@ -21,9 +18,14 @@ Comment line.
 
 
 State line.
+
 Previous bid line
+
 Priority line
-Bid and Rules line. There can be multiple Bid and Rules lines attached to each State. At the end of a Bid and Rules line a short description ca be added. The description must be preceeded by the *@* sign i.e *@Approach club*. 
+
+Bid and Rules line.
+
+There can be multiple Bid and Rules lines attached to each State. At the end of a Bid and Rules line a short description ca be added. The description must be preceeded by the *@* sign i.e *@Approach club*. 
 
 
 Valid rules are:
@@ -54,8 +56,15 @@ Options for *condition* are:
 *lte* less than or equal to
 
 
+Input file layout.
+
+<next_state> may not contain spaces.
+
+
 ```python
 """
+input file layout
+
 '#' is a comment line, and is ignored
 state: <user defined state as string>
 prev_bid: <previous bid as string>
@@ -75,5 +84,51 @@ priority: <priority order when selecting bids eg. 2c 2nt 2s 2h 1nt 2s 2h 2d 1d 1
 
 """
 ``` 
+
+###Output dictionary
+
+The name of the output is **js_list**.
+
+A new row is generated for each **state**.
+
+Each row consists of {state: <current state string>, prevBid: <previous bid string>, rankings: [list of bids in priority order], availableBids: [list of availableBid objects] } 
+
+The key to each row is *state + prevBid*. The *current state* and the *previous bid*.
+
+*availableBids* is a list of *availableBid* objects.
+
+An *availableBid* object contains {bid:<next bid>, state:<next_state>, rules[rule_1, rule_2, ...], desc:<text description>
+
+
+##Agreed terminology
+
+
+###Bids
+
+N is a number from 1 to 7
+
+Nnb, pass
+Nnt, no trumps
+Nc, clubs
+Nd, diamonds
+Nh, hearts
+Ns, spades
+
+Example, 1nt or 1h.
+
+###State
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

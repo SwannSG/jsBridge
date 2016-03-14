@@ -1,9 +1,9 @@
 
 Opener (none)
-priority 	2c	2nt	2s	2h	1nt	2s	2h	2d	1d	1c	nb
+rankings 	2c	2nt	2s	2h	1nt	2s	2h	2d	1d	1c	nb
  nb responder 	hp0-12  										
  1c responder 	hp13-22  	♣≥2 	♢<4 	♡≤4 	♠≤4						Approach club
- 1d responder 	hp13-22  	♢≥4 	♡≤4 	♠≤4							No major, at least 4 clubs
+ 1d responder 	hp13-22  	♢≥4 	♡≤4 	♠≤4							No major, at least diamonds clubs
  1h responder 	hp13-22  	♡≥5 	♠≤4								Show major
  1s responder 	hp13-22  	♠≥5									Show major
  1nt responder 	hp15-17  	♡≤4 	♠≤4 	dt≤1							Limit bid, tight point count, no 5-card major
@@ -14,16 +14,16 @@ priority 	2c	2nt	2s	2h	1nt	2s	2h	2d	1d	1c	nb
  2nt responder 	hp20-21  	♡≤4 	♠≤4 	dt≤1							Limit bid, tight point count, no 5-card major
 
 Responder (1c)
- nb p											
- 1d p 	♢≥4										
- 1h p 	♡≥4										
- 1s p 	♠≥4										
- 1nt p 	♠<4 	♡<4 	♢<4								
- 2c p 	♣≥4										
- 2d p 	♢≥4										
- 2h p 	♢≥4										
- 2s p 	♢≥4										
-priority 	2s	2h	2d	2c	1s	1h	1nt	1d
+rankings 	2s	2h	2d	2c	1s	1h	1nt	1d	nb
+ nb opener-1-rebid 	lp0-5   										Too weak to respond
+ 1d opener1stRebid 	lp6-11   	♢≥4									Limit bid, at least 4 of bid suit
+ 1h opener1stRebid 	lp6-11   	♡≥4									Limit bid, at least 4 of bid suit
+ 1s opener1stRebid 	lp6-11   	♠≥4									Limit bid, at least 4 of bid suit
+ 1nt opener1stRebid 	hp6-11   	♠<4 	♡<4 	♢<4							Limit bid, no major
+ 2c opener1stRebid 	lp12-40  	♣≥4									Unlimited bid, at least 4 of bid suit
+ 2d opener1stRebid 	lp12-40  	♢≥4									Unlimited bid, at least 4 of bid suit
+ 2h opener1stRebid 	lp12-40  	♢≥4									Unlimited bid, at least 4 of bid suit
+ 2s opener1stRebid 	lp12-40  	♢≥4									Unlimited bid, at least 4 of bid suit
 
 Responder (1d)
  nb p											
@@ -34,7 +34,7 @@ Responder (1d)
  2d p 	♢≥4										
  2h p 	♢≥4										
  2s p 	♢≥4										
-priority 	2s	2h	2d	2c	1s	1h	1nt
+rankings 	2s	2h	2d	2c	1s	1h	1nt
 
 Responder (1h)
  nb p											

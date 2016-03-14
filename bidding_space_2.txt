@@ -3,7 +3,7 @@ prev_bid: none
 priority: 2c 2nt 2s 2h 1nt 2s 2h 2d 1d 1c nb
 nb	responder	p(hp,0,12)
 1c	responder	p(hp,13,22)	s(c,gte,2)	s(d,lt,4) s(h,lte,4) s(s,lte,4)			@Approach club
-1d	responder	p(hp,13,22)	s(d,gte,4)	s(h,lte,4) s(s,lte,4)					@No major, at least 4 clubs
+1d	responder	p(hp,13,22)	s(d,gte,4)	s(h,lte,4) s(s,lte,4)					@No major, at least diamonds clubs
 1h	responder	p(hp,13,22)	s(h,gte,5)	s(s,lte,4)								@Show major
 1s	responder	p(hp,13,22)	s(s,gte,5)											@Show major
 1nt	responder	p(hp,15,17) s(h,lte,4) s(s,lte,4) dt(lte,1)						@Limit bid, tight point count, no 5-card major
@@ -16,16 +16,16 @@ nb	responder	p(hp,0,12)
 
 state	: responder
 prev_bid: 1c
-nb	p(lp,0,5)
-1d	p(lp,6,9)	s(d,gte,4)
-1h	p(lp,6,9)	s(h,gte,4)
-1s	p(lp,6,9)	s(s,gte,4)
-1nt p(hp,6,9)	s(s,lt,4)	s(h,lt,4)	s(d,lt,4) 	
-2c	p(lp,10,40)	s(c,gte,4)
-2d	p(lp,10,40)	s(d,gte,4)
-2h	p(lp,10,40)	s(d,gte,4)
-2s	p(lp,10,40)	s(d,gte,4)
-priority: 2s 2h 2d 2c 1s 1h 1nt 1d
+priority: 2s 2h 2d 2c 1s 1h 1nt 1d nb
+nb	opener-1-rebid	p(lp,0,5)													@Too weak to respond
+1d	opener1stRebid	p(lp,6,11)	s(d,gte,4)										@Limit bid, at least 4 of bid suit
+1h	opener1stRebid	p(lp,6,11)	s(h,gte,4)										@Limit bid, at least 4 of bid suit
+1s	opener1stRebid	p(lp,6,11)	s(s,gte,4)										@Limit bid, at least 4 of bid suit
+1nt opener1stRebid	p(hp,6,11)	s(s,lt,4)	s(h,lt,4)	s(d,lt,4)				@Limit bid, no major 	
+2c	opener1stRebid	p(lp,12,40)	s(c,gte,4)										@Unlimited bid, at least 4 of bid suit				
+2d	opener1stRebid	p(lp,12,40)	s(d,gte,4)										@Unlimited bid, at least 4 of bid suit
+2h	opener1stRebid	p(lp,12,40)	s(d,gte,4)										@Unlimited bid, at least 4 of bid suit
+2s	opener1stRebid	p(lp,12,40)	s(d,gte,4)										@Unlimited bid, at least 4 of bid suit
 
 state	: responder
 prev_bid: 1d

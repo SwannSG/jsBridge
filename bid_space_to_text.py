@@ -78,14 +78,11 @@ re_comment = re.compile(ur'^\s*#')
 re_state = re.compile(ur'^\s*(state)\s*:\s*(\w+)')
 re_prev_bid = re.compile(ur'^\s*(prev_bid)\s*:\s*(\w+)')
 re_priority = re.compile(ur'^\s*(priority)\s*:\s*(\w{0,3})\s*(\w{0,3})\s*(\w{0,3})\s*(\w{0,3})\s*(\w{0,3})\s*(\w{0,3})\s*(\w{0,3})\s*(\w{0,3})\s*(\w{0,3})\s*(\w{0,3})\s*(\w{0,3})')
-
-#re_next_state = re.compile(ur'^\s*(next_state)\s*:\s*(ns\s*(?:\(\s*\(|\()\s*[0-9a-z,) ]+\))\s*(ns\s*(?:\(\s*\(|\()\s*[0-9a-z,) ]+\))\s*(ns\s*(?:\(\s*\(|\()\s*[0-9a-z,) ]+\))\s*(ns\s*(?:\(\s*\(|\()\s*[0-9a-z,) ]+\))\s*(ns\s*(?:\(\s*\(|\()\s*[0-9a-z,) ]+\))\s*(ns\s*(?:\(\s*\(|\()\s*[0-9a-z,) ]+\))\s*(ns\s*(?:\(\s*\(|\()\s*[0-9a-z,) ]+\))\s*(ns\s*(?:\(\s*\(|\()\s*[0-9a-z,) ]+\))'
-
-re_rule = re.compile(ur'^\s*(\w+)\s*(\w+)\s*([a-z0-9,()]*)\s*([a-z0-9,()]*)\s*([a-z0-9,()]*)\s*([a-z0-9,()]*)\s*([a-z0-9,()]*)\s*([a-z0-9,()]*)\s*([a-z0-9,()]*)\s*([a-z0-9,()]*)\s*([a-z0-9,()]*)')
+re_rule = re.compile(ur'^\s*(\w+)\s*([a-zA-z0-9_\-]+)\s*([a-z0-9,()]*)\s*([a-z0-9,()]*)\s*([a-z0-9,()]*)\s*([a-z0-9,()]*)\s*([a-z0-9,()]*)\s*([a-z0-9,()]*)\s*([a-z0-9,()]*)\s*([a-z0-9,()]*)\s*([a-z0-9,()]*)')
 re_points = re.compile(ur'^\s*(p)\(\s*([a-z]{2,3})\s*,\s*(\d{1,2})\s*,\s*(\d{1,2})')
 re_suit = re.compile(ur'^\s*(s)\(\s*([s|h|d|c])\s*,\s*([a-z]{2,3})\s*,\s*(\d{1,2})')
 re_doubletons = re.compile(ur'^\s*(dt)\s*\(\s*([a-z]{2,3})\s*,\s*(\d)')
-re_text = re.compile(ur'[\sA-Za-z0-9,()]*@([A-Za-z0-9, \-]*)')
+re_text = re.compile(ur"[\sA-Za-z0-9,()'_\-]*@([A-Za-z0-9, \-]*)")
 
 
 
@@ -106,14 +103,16 @@ for line in fp:
     r = re_state.match(line) 
     if r is not None:
         # state
+        print 'state'
         r = r.groups()
         state = r[1]
         continue
 
-    # 'prev_bid:' line
+    # 'prevBid': line (previously called 'prev_bid)
     r = re_prev_bid.match(line)
     if r is not None:
         # previous bid
+        print 'prevBid'
         r = r.groups()
         prev_bid = r[1]
         o.append('')
@@ -123,48 +122,56 @@ for line in fp:
             js_list.append(js_state_obj)
         except:
             pass
-        js_state_obj = {'state': state, 'previous_bid': prev_bid, 'next_bid_priority': [], 'next_bid': []}
+        js_state_obj = {'state': state, 'prevBid': prev_bid, 'rankings': [], 'availableBids': []}
         continue
 
-    # 'priority:' line
+    # 'rankings:' line (previously called 'priority')
     r = re_priority.match(line) 
     if r is not None:
         # priority
+        print 'available bids'
         r = r.groups()
         # ('priority', '2nt', '1s', '1h', '1nt', '1d', '1c')
-        o.append('priority %s' % format_priority(r))
-        js_state_obj['next_bid_priority'] = js_priority(r)
+        o.append('rankings %s' % format_priority(r))
+        js_state_obj['rankings'] = js_priority(r)
         continue
 
-    # rule line
+    # availableBid line (previously called rule line)
     r = re_rule.match(line)
     if r is not None:
-        # rules
+        # availableBid line
         r = r.groups()
+        # ('nb', 'responder\tp', '(hp,0,12)', '', '', '', '', '', '', '', '')
         rule_list = []
         # start new object
-        js_next_bid= {'bid': '', 'next_state': '','rules': [], 'text':''}
-        # [hasPoints(lp,6,9), hasSuitLength(s,gte,3]
+        js_next_bid= {'bid': '', 'state': '','rules': [], 'desc':''}
         for index, each in enumerate(r):
             rule_obj = {}
             if index == 0:
+                # bid
                 next_bid = each
                 rule_list.append(next_bid)
                 rule_obj['bid'] = next_bid
                 js_next_bid['bid'] = next_bid
+                print '\tbid'
 
-                # add Text here
+                # 'desc'
                 r_text = re_text.match(line)
                 if r_text is not None:
                     r_text_groups = r_text.groups()
-                    js_next_bid['text'] = r_text_groups[0].strip()
+                    js_next_bid['desc'] = r_text_groups[0].strip()
+                    print '\t' + js_next_bid['desc']
                     
             elif index == 1:
+                # state
                 next_state = each
+                print next_state
                 rule_list.append(next_state)
-                rule_obj['next_state'] = next_state
-                js_next_bid['next_state'] = next_state
+                rule_obj['state'] = next_state
+                js_next_bid['state'] = next_state
+                print '\tstate'
             else:
+                # rules
                 # function of form 'p(lp,6,9)' or 's(s,gte,4) or doubletons(lte,1)'
                 m = re_points.match(each)
                 if m is not None:
@@ -174,6 +181,7 @@ for line in fp:
                     rule_list.append(formatted_rule)
                     js_rule_str = js_rule(m[0], m[1], m[2], m[3]) 
                     js_next_bid['rules'].append(js_rule_str)
+                    print '\t\tpoints'    
                     continue
                 m = re_suit.match(each)
                 if m is not None:
@@ -183,6 +191,7 @@ for line in fp:
                     rule_list.append(formatted_rule)
                     js_rule_str = js_rule(m[0], m[1], m[2], m[3])
                     js_next_bid['rules'].append(js_rule_str)
+                    print '\t\tsuit'
                     continue
                 m = re_doubletons.match(each)
                 if m is not None:
@@ -192,14 +201,15 @@ for line in fp:
                     rule_list.append(formatted_rule)
                     js_rule_str = js_rule(m[0], m[1], m[2], '')
                     js_next_bid['rules'].append(js_rule_str)
+                    print '\t\tdoubletom'
                     continue
 
-        js_state_obj['next_bid'].append(js_next_bid)
+        js_state_obj['availableBids'].append(js_next_bid)
 
         rule_str = ''
         for each in rule_list:
             rule_str = rule_str + ' ' + each
-        rule_str = rule_str + '\t'*(12 - len(rule_list)) + '\t' + js_next_bid['text']
+        rule_str = rule_str + '\t'*(12 - len(rule_list)) + '\t' + js_next_bid['desc']
         o.append(rule_str)
 
 fp.close()
