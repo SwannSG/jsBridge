@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ecf18f09-35bc-40a1-9cf8-c3f2c0b8e8b9" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bid_space_to_text.py" afterPath="$PROJECT_DIR$/bid_space_to_text.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bidding_space_2.txt" afterPath="$PROJECT_DIR$/bidding_space_2.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_output.txt" afterPath="$PROJECT_DIR$/test_output.txt" />
-    </list>
+    <list default="true" id="ecf18f09-35bc-40a1-9cf8-c3f2c0b8e8b9" name="Default" comment="" />
     <ignored path="jsBridge.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -77,8 +73,8 @@
       <file leaf-file-name="deal.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/deal.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.77424747" vertical-offset="8612" max-vertical-offset="14160">
-              <caret line="605" column="40" selection-start-line="605" selection-start-column="40" selection-end-line="605" selection-end-column="40" />
+            <state vertical-scroll-proportion="0.33277592" vertical-offset="12941" max-vertical-offset="14160">
+              <caret line="876" column="37" selection-start-line="876" selection-start-column="26" selection-end-line="876" selection-end-column="37" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -725,8 +721,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/deal.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.77424747" vertical-offset="8612" max-vertical-offset="14160">
-          <caret line="605" column="40" selection-start-line="605" selection-start-column="40" selection-end-line="605" selection-end-column="40" />
+        <state vertical-scroll-proportion="0.33277592" vertical-offset="12941" max-vertical-offset="14160">
+          <caret line="876" column="37" selection-start-line="876" selection-start-column="26" selection-end-line="876" selection-end-column="37" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
